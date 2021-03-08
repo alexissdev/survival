@@ -1,0 +1,4 @@
+name: Survival
+version: 1.0.0
+description: The survival core has been created by Cassha.
+main: dev.notcacha.survival.core.Survival

@@ -1,0 +1,54 @@
+# English language messages.
+# This message will be sent when the target is offline
+target-offline: "%%red%%%target_name% is offline."
+# This message will be sent when a player's statistics are requested
+statistic:
+  message:
+    - "%%gray%%%%strike%%-------------------------------"
+    - " %%gray%%%%arrow%% %%white%%Kills%%gray%%: %%blue%%%player_kills%"
+    - " %%gray%%%%arrow%% %%white%%Deaths%%gray%%: %%blue%%%player_deaths%"
+    - " %%gray%%%%arrow%% %%white%%Balance%%gray%%: %%blue%%%player_balance%"
+    - " %%bold%%%%blue%%Ores"
+    - " %%gray%%%%arrow%% %%green%%Emerald%%gray%%: %%blue%%%player_ores_emerald%"
+    - " %%gray%%%%arrow%% %%aqua%%Diamond%%gray%%: %%blue%%%player_ores_diamond%"
+    - " %%gray%%%%arrow%% %%red%%Redstone%%gray%%: %%blue%%%player_ores_redstone%"
+    - " %%gray%%%%arrow%% %%gold%%Gold%%gray%%: %%blue%%%player_ores_gold%"
+    - " %%gray%%%%arrow%% %%gray%%Iron%%gray%%: %%blue%%%player_ores_iron%"
+    - " %%gray%%%%arrow%% %%dark_gray%%Coal%%gray%%: %%blue%%%player_ores_coal%"
+    - "%%gray%%%%strike%%---------------------------%%gray%%%%strike%%----"
+# Scoreboard properties.
+scoreboard:
+# Properties of default scoreboard.
+  default:
+    title: "%%blue%%%%bold%Survival"
+    lines:
+      - "%%gray%%%%strike%%-------------------------------"
+      - " %%blue%%%%bold%%Information"
+      - "  %%gray%%%%arrow%% %%white%%Name%%gray%%: %%blue%%%player_name%"
+      - "  %%gray%%%%arrow%% %%white%%Online%%gray%%: %%blue%%%online_players%"
+      - "%%empty%%"
+      - " %%blue%%%%bold%Statistics"
+      - "  %%gray%%%%arrow%% %%white%%Kills%%gray%%: %%blue%%%player_kills%"
+      - "  %%gray%%%%arrow%% %%white%%Deaths%%gray%%: %%blue%%%player_deaths%"
+      - "  %%gray%%%%arrow%% %%white%%Balance%%gray%%: %%blue%%%player_balance%"
+      - "%%empty%%"
+      - "%%gray%%www.servername.com"
+      - "%%gray%%%%strike%%---------------------------%%gray%%%%strike%%----"
+# Properties of Scoreboard from koth.
+  koth:
+    title: ""
+    lines:
+      - ""
+# The warp messages.
+warp:
+  main:
+    - ""
+  create:
+    usage: "%%red%%Correct usage is /warp create <warp name>."
+    message: "%%green%%The warp %warp_name% has been created."
+  exists: "%%red%%The warp %warp_name% is already exists."
+  not:
+    exists: "%%red%%The warp %warp_name% not exists."
+  delete:
+    usage: "%%red%%Correct usage is /warp delete <warp name>."
+    message: "%%green%%The warp %warp_name% has been deleted."

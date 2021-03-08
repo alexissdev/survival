@@ -52,3 +52,8 @@ warp:
   delete:
     usage: "%%red%%Correct usage is /warp delete <warp name>."
     message: "%%green%%The warp %warp_name% has been deleted."
+# The spawn messages.
+spawn:
+  teleport: "%%blue%%You have a teleport to %%yellow%%spawn."
+  not-exists: "%%red%%The spawn not exists."
+  set: "%%green%%The spawn location has been set."

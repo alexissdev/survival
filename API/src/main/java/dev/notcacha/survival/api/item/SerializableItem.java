@@ -3,6 +3,7 @@ package dev.notcacha.survival.api.item;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import dev.notcacha.survival.api.util.Colorize;
+import dev.notcacha.survival.api.util.Validate;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
@@ -121,6 +122,8 @@ public interface SerializableItem {
      */
 
     static SerializableItem fromItemStack(ItemStack itemStack) {
+        Validate.nonNull(itemStack, "The ItemStack to SerializableItem is null.");
+
         ItemMeta itemMeta = itemStack.getItemMeta();
 
         return new SerializableItem() {

@@ -57,3 +57,13 @@ spawn:
   teleport: "%%blue%%You have a teleport to %%yellow%%spawn."
   not-exists: "%%red%%The spawn not exists."
   set: "%%green%%The spawn location has been set."
+# The kit message
+kit:
+  exists: "%%red%%The kit %kit_id% is already exists."
+  not-exists: "%%red%%The kit %kit_id% is not exists."
+  create:
+    usage: "%%red%%Correct usage is /kit create <kit name>"
+    message: "%%green%%The kit %kit_id% has been created."
+  delete:
+    usage: "%%red%%Correct usage is /kit delete <kit name>"
+    message: "%%green%%The kit %kit_id% has been deleted."

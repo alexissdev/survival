@@ -21,6 +21,9 @@ public class KothModule extends AbstractModule {
                 )
         );
 
-        modelDataBinder.bindStorage().bindCache(ObjectCache.Type.DEFAULT).bindMatcher();
+        modelDataBinder.bindStorage()
+                .bindCache(ObjectCache.Type.DEFAULT)
+                .bindMatcher()
+                .bindProcessors().bindAll();
     }
 }

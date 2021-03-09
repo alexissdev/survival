@@ -19,11 +19,14 @@ public class UserModule extends AbstractModule {
                 User.class,
                 ModelBinderData.forStorage(
                         TypeReferenceUtil.getTypeOf(User.class),
-                        "/tags/"
+                        "/users/"
                 )
         );
 
-        modelDataBinder.bindStorage().bindCache(ObjectCache.Type.TEMPORARY);
+        modelDataBinder.bindStorage()
+                .bindCache(ObjectCache.Type.TEMPORARY)
+                .bindProcessors()
+                .bindAll();
 
         bind(TypeReference.of(ModelMatcher.class)).to(UserModelMatcher.class).singleton();
     }

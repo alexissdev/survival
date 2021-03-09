@@ -22,7 +22,11 @@ public class KitModule extends AbstractModule {
                 )
         );
 
-        modelDataBinder.bindStorage().bindCache(ObjectCache.Type.TEMPORARY).bindMatcher();
+        modelDataBinder.bindStorage()
+                .bindCache(ObjectCache.Type.TEMPORARY)
+                .bindMatcher()
+                .bindProcessors()
+                .bindAll();
 
         bind(KitApplier.class).to(CoreKitApplier.class);
     }

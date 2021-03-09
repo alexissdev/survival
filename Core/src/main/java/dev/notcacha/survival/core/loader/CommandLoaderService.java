@@ -1,10 +1,7 @@
 package dev.notcacha.survival.core.loader;
 
 import dev.notcacha.survival.api.service.Service;
-import dev.notcacha.survival.core.command.SetSpawnCommand;
-import dev.notcacha.survival.core.command.SpawnCommand;
-import dev.notcacha.survival.core.command.StatisticCommand;
-import dev.notcacha.survival.core.command.WarpCommand;
+import dev.notcacha.survival.core.command.*;
 import me.fixeddev.commandflow.CommandManager;
 import me.fixeddev.commandflow.annotated.AnnotatedCommandTreeBuilder;
 import me.fixeddev.commandflow.annotated.AnnotatedCommandTreeBuilderImpl;
@@ -75,13 +72,16 @@ public class CommandLoaderService implements Service {
         private SpawnCommand spawnCommand;
         @Inject
         private SetSpawnCommand setSpawnCommand;
+        @Inject
+        private KitCommand kitCommand;
 
         public CommandClass[] get() {
             return new CommandClass[]{
                     statisticCommand,
                     warpCommand,
                     spawnCommand,
-                    setSpawnCommand
+                    setSpawnCommand,
+                    kitCommand
             };
         }
 

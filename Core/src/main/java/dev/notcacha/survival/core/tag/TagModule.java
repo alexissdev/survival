@@ -22,7 +22,10 @@ public class TagModule extends AbstractModule {
                 )
         );
 
-        modelDataBinder.bindStorage().bindMatcher().bindCache(ObjectCache.Type.DEFAULT);
+        modelDataBinder.bindStorage()
+                .bindMatcher()
+                .bindCache(ObjectCache.Type.DEFAULT)
+                .bindProcessors().bindAll();
 
         bind(TagApplier.class).to(CoreTagApplier.class);
     }

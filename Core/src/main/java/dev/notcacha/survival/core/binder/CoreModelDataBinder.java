@@ -2,11 +2,13 @@ package dev.notcacha.survival.core.binder;
 
 import dev.notcacha.survival.api.binder.ModelDataBinder;
 import dev.notcacha.survival.api.binder.data.ModelBinderData;
+import dev.notcacha.survival.api.binder.processor.ModelProcessorBinder;
 import dev.notcacha.survival.api.cache.ObjectCache;
 import dev.notcacha.survival.api.matcher.ModelMatcher;
 import dev.notcacha.survival.api.model.SavableModel;
 import dev.notcacha.survival.api.storage.ModelStorage;
 import dev.notcacha.survival.api.util.Validate;
+import dev.notcacha.survival.core.binder.processor.CoreModelProcessorBinder;
 import dev.notcacha.survival.core.cache.CaffeineObjectCache;
 import dev.notcacha.survival.core.cache.MapObjectCache;
 import dev.notcacha.survival.core.matcher.CoreModelMatcher;
@@ -39,8 +41,8 @@ public class CoreModelDataBinder<T extends SavableModel> implements ModelDataBin
     @Override
     public ModelDataBinder<T> bindStorage() {
         binder.bind(
-                TypeReferenceUtil.getParameterized(ModelStorage.class, modelClass
-                )).to(
+                TypeReferenceUtil.getParameterized(ModelStorage.class, modelClass)
+        ).to(
                 TypeReferenceUtil.getParameterized(JsonModelStorage.class, modelClass)
         ).singleton();
 
@@ -54,16 +56,16 @@ public class CoreModelDataBinder<T extends SavableModel> implements ModelDataBin
 
             case TEMPORARY: {
                 binder.bind(
-                        TypeReferenceUtil.getParameterized(ObjectCache.class, modelClass
-                        )).to(
+                        TypeReferenceUtil.getParameterized(ObjectCache.class, modelClass)
+                ).to(
                         TypeReferenceUtil.getParameterized(CaffeineObjectCache.class, modelClass)
                 ).singleton();
             }
 
             case DEFAULT: {
                 binder.bind(
-                        TypeReferenceUtil.getParameterized(ObjectCache.class, modelClass
-                        )).to(
+                        TypeReferenceUtil.getParameterized(ObjectCache.class, modelClass)
+                ).to(
                         TypeReferenceUtil.getParameterized(MapObjectCache.class, modelClass)
                 ).singleton();
             }
@@ -76,8 +78,8 @@ public class CoreModelDataBinder<T extends SavableModel> implements ModelDataBin
     @Override
     public ModelDataBinder<T> bindMatcher() {
         binder.bind(
-                TypeReferenceUtil.getParameterized(ModelMatcher.class, modelClass
-                )).to(
+                TypeReferenceUtil.getParameterized(ModelMatcher.class, modelClass)
+        ).to(
                 TypeReferenceUtil.getParameterized(CoreModelMatcher.class, modelClass)
         ).singleton();
 
@@ -85,7 +87,14 @@ public class CoreModelDataBinder<T extends SavableModel> implements ModelDataBin
     }
 
     @Override
+    public ModelProcessorBinder<T> bindProcessors() {
+        return new CoreModelProcessorBinder<>(binder, modelClass);
+    }
+
+    @Override
     public <M extends SavableModel> ModelDataBinder<M> newBinder(Class<M> modelClass) {
+        Validate.nonNull(modelClass, "The new model class from new binder is null.");
+
         return new CoreModelDataBinder<>(binder, modelClass);
     }
 

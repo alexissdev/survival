@@ -21,6 +21,10 @@ public class WarpModule extends AbstractModule {
                 )
         );
 
-        modelDataBinder.bindStorage().bindCache(ObjectCache.Type.TEMPORARY).bindMatcher();
+        modelDataBinder.bindStorage()
+                .bindCache(ObjectCache.Type.TEMPORARY)
+                .bindMatcher()
+                .bindProcessors()
+                .bindAll();
     }
 }

@@ -2,7 +2,9 @@ package dev.notcacha.survival.core;
 
 import dev.notcacha.survival.core.kit.KitModule;
 import dev.notcacha.survival.core.koth.KothModule;
+import dev.notcacha.survival.core.loader.LoaderModule;
 import dev.notcacha.survival.core.scoreboard.ScoreboardModule;
+import dev.notcacha.survival.core.service.ServiceModule;
 import dev.notcacha.survival.core.tag.TagModule;
 import dev.notcacha.survival.core.translation.TranslationModule;
 import dev.notcacha.survival.core.user.UserModule;
@@ -31,5 +33,8 @@ public class SurvivalModule extends AbstractModule {
         install(new KothModule());
         install(new ScoreboardModule());
         install(new TagModule());
+
+        install(new LoaderModule());
+        install(new ServiceModule());
     }
 }

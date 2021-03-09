@@ -7,6 +7,7 @@ public class LoaderModule extends AbstractModule {
 
     @Override
     protected void configure() {
+        bind(Service.class).named("spawn-loader").to(SpawnLoaderService.class);
         bind(Service.class).named("command-loader").to(CommandLoaderService.class);
         bind(Service.class).named("event-loader").to(EventLoaderService.class);
 

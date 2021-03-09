@@ -2,6 +2,7 @@ package dev.notcacha.survival.api.kit.builder;
 
 import dev.notcacha.survival.api.item.SerializableItem;
 import dev.notcacha.survival.api.kit.Kit;
+import dev.notcacha.survival.api.util.Validate;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,19 +46,19 @@ public interface KitBuilder {
 
             @Override
             public KitBuilder setPermission(String permission) {
-                this.permission = permission;
+                this.permission = Validate.nonNull(permission, "The permission from kit builder is null.");
                 return this;
             }
 
             @Override
             public KitBuilder setInventoryContents(Map<Integer, SerializableItem> inventoryContents) {
-                this.inventoryContents = inventoryContents;
+                this.inventoryContents = Validate.nonNull(inventoryContents, "The inventory contents from kit builder is null.");
                 return this;
             }
 
             @Override
             public KitBuilder setArmorContents(Map<Integer, SerializableItem> armorContents) {
-                this.armorContents = armorContents;
+                this.armorContents = Validate.nonNull(armorContents, "The armor contents from kit builder is null.");;
                 return this;
             }
 

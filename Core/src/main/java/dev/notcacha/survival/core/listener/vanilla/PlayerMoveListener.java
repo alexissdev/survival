@@ -15,6 +15,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 
 import javax.inject.Inject;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 public class PlayerMoveListener implements Listener {
 
@@ -27,7 +28,7 @@ public class PlayerMoveListener implements Listener {
     public void onPlayerMove(PlayerMoveEvent event) {
         Player player = event.getPlayer();
 
-        executorService.submit(() -> {
+        CompletableFuture.supplyAsync(() -> {
 
             for (Koth koth : kothObjectCache.getAllPresent()) {
                 Optional<Cuboid.Repository> cuboidRepositoryOptional = koth.getCuboidRepository();
@@ -47,7 +48,7 @@ public class PlayerMoveListener implements Listener {
                                 )
                         );
 
-                        return;
+                        return null;
                     }
                     continue;
                 }
@@ -63,6 +64,7 @@ public class PlayerMoveListener implements Listener {
                 );
             }
 
-        });
+            return null;
+        }, executorService);
     }
 }

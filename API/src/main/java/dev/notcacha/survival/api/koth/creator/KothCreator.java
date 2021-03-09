@@ -3,6 +3,7 @@ package dev.notcacha.survival.api.koth.creator;
 import dev.notcacha.survival.api.item.SerializableItem;
 import dev.notcacha.survival.api.koth.Koth;
 import dev.notcacha.survival.api.util.Cuboid;
+import dev.notcacha.survival.api.util.Validate;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -14,6 +15,8 @@ public interface KothCreator {
      * */
 
     static Koth create(String kothId) {
+        Validate.nonNull(kothId, "The koth id from KothCreator is null.");
+
         return new Koth() {
 
             private final LocalDateTime localDateTime = LocalDateTime.now();

@@ -1,11 +1,13 @@
 package dev.notcacha.survival.api.user.creator;
 
+import dev.notcacha.survival.api.backpack.Backpack;
 import dev.notcacha.survival.api.statistics.Statistics;
 import dev.notcacha.survival.api.statistics.creator.StatisticsCreator;
 import dev.notcacha.survival.api.user.User;
 import dev.notcacha.survival.api.user.statistics.UserOresStatistic;
 import dev.notcacha.survival.api.util.Validate;
 import org.bukkit.Bukkit;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 
@@ -72,11 +74,6 @@ public interface UserCreator {
 
             private String language = "en";
 
-            private final Statistics balanceStatistic = StatisticsCreator.create();
-            private final Statistics killsStatistic = StatisticsCreator.create();
-            private final Statistics deathsStatistic = StatisticsCreator.create();
-            private final UserOresStatistic oresStatistic = UserOresStatistic.create();
-
             @Override
             public String getId() {
                 return properties.getId();
@@ -98,24 +95,54 @@ public interface UserCreator {
             }
 
             @Override
-            public Statistics getBalance() {
-                return balanceStatistic;
+            public StatisticHandler getStatisticHandler() {
+                return new StatisticHandler() {
+
+                    private final Statistics balanceStatistic = StatisticsCreator.create();
+                    private final Statistics killsStatistic = StatisticsCreator.create();
+                    private final Statistics deathsStatistic = StatisticsCreator.create();
+                    private final UserOresStatistic oresStatistic = UserOresStatistic.create();
+
+                    @Override
+                    public Statistics getBalance() {
+                        return balanceStatistic;
+                    }
+
+                    @Override
+                    public Statistics getKills() {
+                        return killsStatistic;
+                    }
+
+                    @Override
+                    public Statistics getDeaths() {
+                        return deathsStatistic;
+                    }
+
+                    @Override
+                    public UserOresStatistic getOres() {
+                        return oresStatistic;
+                    }
+                };
             }
 
             @Override
-            public Statistics getKills() {
-                return killsStatistic;
+            public BackpackHandler getBackpackHandler() {
+                return new BackpackHandler() {
+
+                    private Backpack backpack = null;
+
+                    @Override
+                    public @Nullable Backpack getBackpack() {
+                        return backpack;
+                    }
+
+                    @Override
+                    public void setBackpack(Backpack backpack) {
+                        this.backpack = backpack;
+                    }
+                };
             }
 
-            @Override
-            public Statistics getDeaths() {
-                return deathsStatistic;
-            }
-
-            @Override
-            public UserOresStatistic getOres() {
-                return oresStatistic;
-            }
 
         };
     }

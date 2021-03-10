@@ -1,8 +1,10 @@
 package dev.notcacha.survival.api.user;
 
+import dev.notcacha.survival.api.backpack.Backpack;
 import dev.notcacha.survival.api.model.SavableModel;
 import dev.notcacha.survival.api.statistics.Statistics;
 import dev.notcacha.survival.api.user.statistics.UserOresStatistic;
+import org.jetbrains.annotations.Nullable;
 
 public interface User extends SavableModel {
 
@@ -25,26 +27,59 @@ public interface User extends SavableModel {
     void setLanguage(String language);
 
     /**
-     * @return The balance from this user.
+     * @return The handler from {@link Statistics}.
      */
 
-    Statistics getBalance();
+    StatisticHandler getStatisticHandler();
+
+    interface StatisticHandler {
+
+        /**
+         * @return The balance from this user.
+         */
+
+        Statistics getBalance();
+
+        /**
+         * @return The kills statistic from this user.
+         */
+
+        Statistics getKills();
+
+        /**
+         * @return The deaths statistic from this user.
+         */
+
+        Statistics getDeaths();
+
+        /**
+         * @return The ores statistic from this user.
+         */
+
+        UserOresStatistic getOres();
+
+    }
 
     /**
-     * @return The kills statistic from this user.
+     * @return the handle from user backpack.
      */
 
-    Statistics getKills();
+    BackpackHandler getBackpackHandler();
 
-    /**
-     * @return The deaths statistic from this user.
-     */
+    interface BackpackHandler {
 
-    Statistics getDeaths();
+        /**
+         * @return The backpack of this user.
+         */
 
-    /**
-     * @return The ores statistic from this user.
-     */
+        @Nullable
+        Backpack getBackpack();
 
-    UserOresStatistic getOres();
+        /**
+         * Set the backpack of this user.
+         */
+
+        void setBackpack(Backpack backpack);
+
+    }
 }

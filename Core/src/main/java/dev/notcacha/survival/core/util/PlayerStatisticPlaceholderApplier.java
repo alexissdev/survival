@@ -24,39 +24,39 @@ public class PlayerStatisticPlaceholderApplier {
         switch (placeholder.toLowerCase()) {
 
             case "balance": {
-                return String.valueOf(user.getBalance().getAmount());
+                return String.valueOf(user.getStatisticHandler().getBalance().getAmount());
             }
 
             case "kills": {
-                return String.valueOf(user.getKills().getAmount());
+                return String.valueOf(user.getStatisticHandler().getKills().getAmount());
             }
 
             case "deaths": {
-                return String.valueOf(user.getDeaths().getAmount());
+                return String.valueOf(user.getStatisticHandler().getDeaths().getAmount());
             }
 
             case "ores_emerald": {
-                return String.valueOf(user.getOres().getEmeraldStatistic());
+                return String.valueOf(user.getStatisticHandler().getOres().getEmeraldStatistic());
             }
 
             case "ores_diamond": {
-                return String.valueOf(user.getOres().getDiamondStatistic());
+                return String.valueOf(user.getStatisticHandler().getOres().getDiamondStatistic());
             }
 
             case "ores_redstone": {
-                return String.valueOf(user.getOres().getRedstoneStatistic());
+                return String.valueOf(user.getStatisticHandler().getOres().getRedstoneStatistic());
             }
 
             case "ores_gold": {
-                return String.valueOf(user.getOres().getGoldStatistic());
+                return String.valueOf(user.getStatisticHandler().getOres().getGoldStatistic());
             }
 
             case "ores_iron": {
-                return String.valueOf(user.getOres().getIronStatistic());
+                return String.valueOf(user.getStatisticHandler().getOres().getIronStatistic());
             }
 
             case "ores_coal": {
-                return String.valueOf(user.getOres().getCoalStatistic());
+                return String.valueOf(user.getStatisticHandler().getOres().getCoalStatistic());
             }
 
             default: {

@@ -3,6 +3,7 @@ package dev.notcacha.survival.api.user;
 import dev.notcacha.survival.api.backpack.Backpack;
 import dev.notcacha.survival.api.model.SavableModel;
 import dev.notcacha.survival.api.statistics.Statistics;
+import dev.notcacha.survival.api.tag.Tag;
 import dev.notcacha.survival.api.user.statistics.UserOresStatistic;
 import org.jetbrains.annotations.Nullable;
 
@@ -80,6 +81,29 @@ public interface User extends SavableModel {
          */
 
         void setBackpack(Backpack backpack);
+
+    }
+
+    /**
+     * @return the user tag compound
+     */
+
+    TagCompound getTagCompound();
+
+    interface TagCompound {
+
+        /**
+         * @return The id from {@link Tag}.
+         */
+
+        @Nullable
+        String getTag();
+
+        /**
+         * Set the tag id from this user.
+         */
+
+        void setTag(String tag);
 
     }
 }

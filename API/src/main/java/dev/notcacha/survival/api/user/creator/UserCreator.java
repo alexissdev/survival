@@ -143,6 +143,25 @@ public interface UserCreator {
                 };
             }
 
+            @Override
+            public TagCompound getTagCompound() {
+                return new TagCompound() {
+
+                    private String tag = null;
+
+                    @Override
+                    @Nullable
+                    public String getTag() {
+                        return tag;
+                    }
+
+                    @Override
+                    public void setTag(String tag) {
+                        this.tag = tag;
+                    }
+                };
+            }
+
 
         };
     }

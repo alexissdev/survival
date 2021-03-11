@@ -1,6 +1,6 @@
 package dev.notcacha.survival.core.translation.placeholder;
 
-import dev.notcacha.survival.api.cache.ObjectCache;
+import dev.notcacha.survival.api.cache.ModelCache;
 import dev.notcacha.survival.api.user.User;
 import dev.notcacha.survival.core.util.PlayerStatisticPlaceholderApplier;
 import me.yushust.message.format.PlaceholderProvider;
@@ -16,11 +16,11 @@ import java.util.Optional;
 public class PlayerStatisticPlaceholderProvider implements PlaceholderProvider<Player> {
 
     @Inject
-    private ObjectCache<User> userObjectCache;
+    private ModelCache<User> userModelCache;
 
     @Override
     public @Nullable Object replace(ContextRepository contextRepository, Player player, String text) {
-        Optional<User> userOptional = userObjectCache.findIfPresent(player.getUniqueId().toString());
+        Optional<User> userOptional = userModelCache.findIfPresent(player.getUniqueId().toString());
 
         if (!userOptional.isPresent()) {
             return null;

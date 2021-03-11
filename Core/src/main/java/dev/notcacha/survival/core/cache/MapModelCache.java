@@ -1,6 +1,6 @@
 package dev.notcacha.survival.core.cache;
 
-import dev.notcacha.survival.api.cache.ObjectCache;
+import dev.notcacha.survival.api.cache.ModelCache;
 import dev.notcacha.survival.api.model.SavableModel;
 
 import javax.inject.Singleton;
@@ -11,7 +11,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @Singleton
-public class MapObjectCache<T extends SavableModel> implements ObjectCache<T> {
+public class MapModelCache<T extends SavableModel> implements ModelCache<T> {
 
     private final Map<String, T> modelMap = new HashMap<>();
 

@@ -3,14 +3,14 @@ package dev.notcacha.survival.core.binder;
 import dev.notcacha.survival.api.binder.ModelDataBinder;
 import dev.notcacha.survival.api.binder.data.ModelBinderData;
 import dev.notcacha.survival.api.binder.processor.ModelProcessorBinder;
-import dev.notcacha.survival.api.cache.ObjectCache;
+import dev.notcacha.survival.api.cache.ModelCache;
 import dev.notcacha.survival.api.matcher.ModelMatcher;
 import dev.notcacha.survival.api.model.SavableModel;
 import dev.notcacha.survival.api.storage.ModelStorage;
 import dev.notcacha.survival.api.util.Validate;
 import dev.notcacha.survival.core.binder.processor.CoreModelProcessorBinder;
-import dev.notcacha.survival.core.cache.CaffeineObjectCache;
-import dev.notcacha.survival.core.cache.MapObjectCache;
+import dev.notcacha.survival.core.cache.CaffeineModelCache;
+import dev.notcacha.survival.core.cache.MapModelCache;
 import dev.notcacha.survival.core.matcher.CoreModelMatcher;
 import dev.notcacha.survival.core.storage.JsonModelStorage;
 import dev.notcacha.survival.core.util.TypeReferenceUtil;
@@ -50,23 +50,23 @@ public class CoreModelDataBinder<T extends SavableModel> implements ModelDataBin
     }
 
     @Override
-    public ModelDataBinder<T> bindCache(ObjectCache.Type type) {
+    public ModelDataBinder<T> bindCache(ModelCache.Type type) {
 
         switch (type) {
 
             case TEMPORARY: {
                 binder.bind(
-                        TypeReferenceUtil.getParameterized(ObjectCache.class, modelClass)
+                        TypeReferenceUtil.getParameterized(ModelCache.class, modelClass)
                 ).to(
-                        TypeReferenceUtil.getParameterized(CaffeineObjectCache.class, modelClass)
+                        TypeReferenceUtil.getParameterized(CaffeineModelCache.class, modelClass)
                 ).singleton();
             }
 
             case DEFAULT: {
                 binder.bind(
-                        TypeReferenceUtil.getParameterized(ObjectCache.class, modelClass)
+                        TypeReferenceUtil.getParameterized(ModelCache.class, modelClass)
                 ).to(
-                        TypeReferenceUtil.getParameterized(MapObjectCache.class, modelClass)
+                        TypeReferenceUtil.getParameterized(MapModelCache.class, modelClass)
                 ).singleton();
             }
 

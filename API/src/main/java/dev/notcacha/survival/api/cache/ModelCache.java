@@ -1,9 +1,11 @@
 package dev.notcacha.survival.api.cache;
 
+import dev.notcacha.survival.api.model.SavableModel;
+
 import java.util.Optional;
 import java.util.Set;
 
-public interface ObjectCache<O> {
+public interface ModelCache<O extends SavableModel> {
 
     /**
      * @return An object {@link O} encapsulated in an {@link Optional} to prevent possible NPEs

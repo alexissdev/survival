@@ -1,7 +1,7 @@
 package dev.notcacha.survival.api.binder;
 
 import dev.notcacha.survival.api.binder.processor.ModelProcessorBinder;
-import dev.notcacha.survival.api.cache.ObjectCache;
+import dev.notcacha.survival.api.cache.ModelCache;
 import dev.notcacha.survival.api.matcher.ModelMatcher;
 import dev.notcacha.survival.api.model.SavableModel;
 import dev.notcacha.survival.api.processor.Processor;
@@ -18,12 +18,12 @@ public interface ModelDataBinder<T extends SavableModel> {
     ModelDataBinder<T> bindStorage();
 
     /**
-     * Bind a {@link ObjectCache} for model {@link T}
+     * Bind a {@link ModelCache} for model {@link T}
      *
      * @return This class instance.
      */
 
-    ModelDataBinder<T> bindCache(ObjectCache.Type type);
+    ModelDataBinder<T> bindCache(ModelCache.Type type);
 
     /**
      * Bind a {@link ModelMatcher} for model {@link T}

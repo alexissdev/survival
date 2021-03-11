@@ -1,6 +1,6 @@
 package dev.notcacha.survival.core.command.warp;
 
-import dev.notcacha.survival.api.cache.ObjectCache;
+import dev.notcacha.survival.api.cache.ModelCache;
 import dev.notcacha.survival.api.warp.Warp;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
@@ -17,7 +17,7 @@ public class WarpDeleteCommand implements CommandClass {
     @Inject
     private MessageHandler messageHandler;
     @Inject
-    private ObjectCache<Warp> warpObjectCache;
+    private ModelCache<Warp> warpModelCache;
 
     @Command(names = "")
     public boolean delete(@Sender Player player, @OptArg String warpName) {
@@ -27,7 +27,7 @@ public class WarpDeleteCommand implements CommandClass {
             return true;
         }
 
-        if (!warpObjectCache.ifPresent(warpName)) {
+        if (!warpModelCache.ifPresent(warpName)) {
             messageHandler.send(player, "warp.not.exists");
 
             return true;
@@ -35,7 +35,7 @@ public class WarpDeleteCommand implements CommandClass {
 
         messageHandler.sendReplacing(player, "default", "warp.delete.message", "%warp_name%", warpName);
 
-        warpObjectCache.removeObject(warpName);
+        warpModelCache.removeObject(warpName);
         return true;
     }
 

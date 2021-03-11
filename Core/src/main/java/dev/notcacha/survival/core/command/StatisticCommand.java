@@ -1,6 +1,6 @@
 package dev.notcacha.survival.core.command;
 
-import dev.notcacha.survival.api.cache.ObjectCache;
+import dev.notcacha.survival.api.cache.ModelCache;
 import dev.notcacha.survival.api.user.User;
 import dev.notcacha.survival.core.util.PlayerStatisticPlaceholderApplier;
 import me.fixeddev.commandflow.annotated.CommandClass;
@@ -17,7 +17,7 @@ import java.util.Optional;
 public class StatisticCommand implements CommandClass {
 
     @Inject
-    private ObjectCache<User> userObjectCache;
+    private ModelCache<User> userModelCache;
     @Inject
     private MessageHandler messageHandler;
 
@@ -31,7 +31,7 @@ public class StatisticCommand implements CommandClass {
             return true;
         }
 
-        Optional<User> targetUserOptional = userObjectCache.findIfPresent(target.getUniqueId().toString());
+        Optional<User> targetUserOptional = userModelCache.findIfPresent(target.getUniqueId().toString());
 
         if (!targetUserOptional.isPresent()) {
             //TODO: The target is offline.

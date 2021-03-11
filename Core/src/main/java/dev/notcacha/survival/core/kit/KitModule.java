@@ -2,7 +2,7 @@ package dev.notcacha.survival.core.kit;
 
 import dev.notcacha.survival.api.binder.ModelDataBinder;
 import dev.notcacha.survival.api.binder.data.ModelBinderData;
-import dev.notcacha.survival.api.cache.ObjectCache;
+import dev.notcacha.survival.api.cache.ModelCache;
 import dev.notcacha.survival.api.kit.Kit;
 import dev.notcacha.survival.api.kit.applier.KitApplier;
 import dev.notcacha.survival.core.binder.CoreModelDataBinder;
@@ -23,7 +23,7 @@ public class KitModule extends AbstractModule {
         );
 
         modelDataBinder.bindStorage()
-                .bindCache(ObjectCache.Type.TEMPORARY)
+                .bindCache(ModelCache.Type.TEMPORARY)
                 .bindMatcher()
                 .bindProcessors()
                 .bindAll();

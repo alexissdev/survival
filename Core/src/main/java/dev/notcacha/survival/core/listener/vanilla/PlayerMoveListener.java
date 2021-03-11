@@ -1,7 +1,7 @@
 package dev.notcacha.survival.core.listener.vanilla;
 
 import com.google.common.util.concurrent.ListeningExecutorService;
-import dev.notcacha.survival.api.cache.ObjectCache;
+import dev.notcacha.survival.api.cache.ModelCache;
 import dev.notcacha.survival.api.event.koth.KothEnterEvent;
 import dev.notcacha.survival.api.event.koth.KothLeaveEvent;
 import dev.notcacha.survival.api.koth.Koth;
@@ -22,7 +22,7 @@ public class PlayerMoveListener implements Listener {
     @Inject
     private ListeningExecutorService executorService;
     @Inject
-    private ObjectCache<Koth> kothObjectCache;
+    private ModelCache<Koth> kothModelCache;
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
     public void onPlayerMove(PlayerMoveEvent event) {
@@ -30,7 +30,7 @@ public class PlayerMoveListener implements Listener {
 
         CompletableFuture.supplyAsync(() -> {
 
-            for (Koth koth : kothObjectCache.getAllPresent()) {
+            for (Koth koth : kothModelCache.getAllPresent()) {
                 Optional<Cuboid.Repository> cuboidRepositoryOptional = koth.getCuboidRepository();
                 if (!cuboidRepositoryOptional.isPresent()) {
                     continue;

@@ -1,6 +1,6 @@
 package dev.notcacha.survival.core.translation;
 
-import dev.notcacha.survival.api.cache.ObjectCache;
+import dev.notcacha.survival.api.cache.ModelCache;
 import dev.notcacha.survival.api.user.User;
 import me.yushust.message.language.Linguist;
 import org.bukkit.Bukkit;
@@ -13,14 +13,14 @@ import java.util.logging.Level;
 public class CoreLanguageProvider implements Linguist<Player> {
 
     @Inject
-    private ObjectCache<User> userObjectCache;
+    private ModelCache<User> userModelCache;
 
     @Override
     public @Nullable String getLanguage(Player player) {
         User user;
 
         try {
-            user = userObjectCache.findIfPresent(player.getUniqueId().toString()).orElse(null);
+            user = userModelCache.findIfPresent(player.getUniqueId().toString()).orElse(null);
         } catch (Exception ex) {
             Bukkit.getLogger().log(Level.SEVERE, "Error while finding user data for " + player.getName(), ex);
             return null;

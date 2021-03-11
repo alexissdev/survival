@@ -1,6 +1,6 @@
 package dev.notcacha.survival.core.command.warp;
 
-import dev.notcacha.survival.api.cache.ObjectCache;
+import dev.notcacha.survival.api.cache.ModelCache;
 import dev.notcacha.survival.api.warp.Warp;
 import dev.notcacha.survival.api.warp.creator.WarpCreator;
 import me.fixeddev.commandflow.annotated.CommandClass;
@@ -18,7 +18,7 @@ public class WarpCreateCommand implements CommandClass {
     @Inject
     private MessageHandler messageHandler;
     @Inject
-    private ObjectCache<Warp> warpObjectCache;
+    private ModelCache<Warp> warpModelCache;
 
     @Command(names = "")
     public boolean create(@Sender Player player, @OptArg String warpName) {
@@ -30,7 +30,7 @@ public class WarpCreateCommand implements CommandClass {
             return true;
         }
 
-        if (warpObjectCache.ifPresent(warpName)) {
+        if (warpModelCache.ifPresent(warpName)) {
             //TODO: the warp exists.
 
             messageHandler.sendReplacing(player, "warp.exists", "%warp_name%", warpName);
@@ -42,7 +42,7 @@ public class WarpCreateCommand implements CommandClass {
         Warp warp = WarpCreator.create(warpName);
 
         //TODO: add warp to cache and storage.
-        warpObjectCache.addObject(warp);
+        warpModelCache.addObject(warp);
 
         //TODO: send create message from sender.
         messageHandler.sendReplacing(player, "default", "warp.create.message", "%warp_name%", warpName);

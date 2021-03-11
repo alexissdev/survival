@@ -1,6 +1,6 @@
 package dev.notcacha.survival.core.processor;
 
-import dev.notcacha.survival.api.cache.ObjectCache;
+import dev.notcacha.survival.api.cache.ModelCache;
 import dev.notcacha.survival.api.exception.ProcessorException;
 import dev.notcacha.survival.api.model.SavableModel;
 import dev.notcacha.survival.api.processor.ModelProcessor;
@@ -12,7 +12,7 @@ import javax.inject.Singleton;
 public class CachedModelProcessor<T extends SavableModel> implements ModelProcessor<T> {
 
     @Inject
-    private ObjectCache<T> objectCache;
+    private ModelCache<T> modelCache;
 
     /**
      * Add model to cache.
@@ -24,10 +24,10 @@ public class CachedModelProcessor<T extends SavableModel> implements ModelProces
 
     @Override
     public void process(T model) {
-        if (objectCache.ifPresent(model.getId())) {
+        if (modelCache.ifPresent(model.getId())) {
             throw new ProcessorException("[CachedModelProcessor] The model id " + model.getId() + " already in cached.");
         }
 
-        objectCache.addObject(model);
+        modelCache.addObject(model);
     }
 }

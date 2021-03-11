@@ -2,7 +2,7 @@ package dev.notcacha.survival.core.koth;
 
 import dev.notcacha.survival.api.binder.ModelDataBinder;
 import dev.notcacha.survival.api.binder.data.ModelBinderData;
-import dev.notcacha.survival.api.cache.ObjectCache;
+import dev.notcacha.survival.api.cache.ModelCache;
 import dev.notcacha.survival.api.koth.Koth;
 import dev.notcacha.survival.core.binder.CoreModelDataBinder;
 import dev.notcacha.survival.core.util.TypeReferenceUtil;
@@ -22,7 +22,7 @@ public class KothModule extends AbstractModule {
         );
 
         modelDataBinder.bindStorage()
-                .bindCache(ObjectCache.Type.DEFAULT)
+                .bindCache(ModelCache.Type.DEFAULT)
                 .bindMatcher()
                 .bindProcessors().bindAll();
     }

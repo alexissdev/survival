@@ -1,7 +1,7 @@
 package dev.notcacha.survival.core.matcher;
 
 import com.google.common.util.concurrent.ListeningExecutorService;
-import dev.notcacha.survival.api.cache.ObjectCache;
+import dev.notcacha.survival.api.cache.ModelCache;
 import dev.notcacha.survival.api.concurrent.AsyncResponse;
 import dev.notcacha.survival.api.concurrent.Response;
 import dev.notcacha.survival.api.matcher.ModelMatcher;
@@ -17,13 +17,13 @@ import java.util.Optional;
 public class CoreModelMatcher<T extends SavableModel> implements ModelMatcher<T> {
 
     @Inject
-    private ObjectCache<T> modelObjectCache;
+    private ModelCache<T> modelModelCache;
     @Inject
     private ListeningExecutorService executorService;
 
     @Override
     public Optional<T> findModelByIdSync(String modelId) {
-        return modelObjectCache.findIfPresent(modelId);
+        return modelModelCache.findIfPresent(modelId);
     }
 
     @Override

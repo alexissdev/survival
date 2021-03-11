@@ -2,8 +2,7 @@ package dev.notcacha.survival.core.cache;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.LoadingCache;
-import dev.notcacha.survival.api.cache.ObjectCache;
-import dev.notcacha.survival.api.concurrent.AsyncResponse;
+import dev.notcacha.survival.api.cache.ModelCache;
 import dev.notcacha.survival.api.model.SavableModel;
 import dev.notcacha.survival.api.storage.ModelStorage;
 
@@ -12,15 +11,14 @@ import javax.inject.Singleton;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
-import java.util.function.Predicate;
 
 @Singleton
-public class CaffeineObjectCache<T extends SavableModel> implements ObjectCache<T> {
+public class CaffeineModelCache<T extends SavableModel> implements ModelCache<T> {
 
     private final LoadingCache<String, T> objectCache;
 
     @Inject
-    public CaffeineObjectCache(ModelStorage<T> modelStorage) {
+    public CaffeineModelCache(ModelStorage<T> modelStorage) {
         objectCache = Caffeine.newBuilder()
                 .maximumSize(1000)
                 .expireAfterAccess(Duration.of(5, ChronoUnit.MINUTES))

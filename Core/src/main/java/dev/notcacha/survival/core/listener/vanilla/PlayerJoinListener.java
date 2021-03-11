@@ -1,6 +1,6 @@
 package dev.notcacha.survival.core.listener.vanilla;
 
-import dev.notcacha.survival.api.cache.ObjectCache;
+import dev.notcacha.survival.api.cache.ModelCache;
 import dev.notcacha.survival.api.event.user.UserJoinEvent;
 import dev.notcacha.survival.api.user.User;
 import org.bukkit.Bukkit;
@@ -14,10 +14,10 @@ import javax.inject.Inject;
 public class PlayerJoinListener implements Listener {
 
     @Inject
-    private ObjectCache<User> userObjectCache;
+    private ModelCache<User> userModelCache;
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
     public void onPlayerJoin(PlayerJoinEvent event) {
-        userObjectCache.findIfPresent(event.getPlayer().getUniqueId().toString()).ifPresent(user -> Bukkit.getServer().getPluginManager().callEvent(new UserJoinEvent(user, event.getPlayer())));
+        userModelCache.findIfPresent(event.getPlayer().getUniqueId().toString()).ifPresent(user -> Bukkit.getServer().getPluginManager().callEvent(new UserJoinEvent(user, event.getPlayer())));
     }
 }

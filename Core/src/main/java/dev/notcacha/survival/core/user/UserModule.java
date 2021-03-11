@@ -2,7 +2,7 @@ package dev.notcacha.survival.core.user;
 
 import dev.notcacha.survival.api.binder.ModelDataBinder;
 import dev.notcacha.survival.api.binder.data.ModelBinderData;
-import dev.notcacha.survival.api.cache.ObjectCache;
+import dev.notcacha.survival.api.cache.ModelCache;
 import dev.notcacha.survival.api.matcher.ModelMatcher;
 import dev.notcacha.survival.api.user.User;
 import dev.notcacha.survival.core.binder.CoreModelDataBinder;
@@ -24,7 +24,7 @@ public class UserModule extends AbstractModule {
         );
 
         modelDataBinder.bindStorage()
-                .bindCache(ObjectCache.Type.TEMPORARY)
+                .bindCache(ModelCache.Type.TEMPORARY)
                 .bindProcessors()
                 .bindAll();
 

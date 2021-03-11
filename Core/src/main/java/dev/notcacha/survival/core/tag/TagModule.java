@@ -2,7 +2,7 @@ package dev.notcacha.survival.core.tag;
 
 import dev.notcacha.survival.api.binder.ModelDataBinder;
 import dev.notcacha.survival.api.binder.data.ModelBinderData;
-import dev.notcacha.survival.api.cache.ObjectCache;
+import dev.notcacha.survival.api.cache.ModelCache;
 import dev.notcacha.survival.api.tag.Tag;
 import dev.notcacha.survival.api.tag.applier.TagApplier;
 import dev.notcacha.survival.core.binder.CoreModelDataBinder;
@@ -24,7 +24,7 @@ public class TagModule extends AbstractModule {
 
         modelDataBinder.bindStorage()
                 .bindMatcher()
-                .bindCache(ObjectCache.Type.DEFAULT)
+                .bindCache(ModelCache.Type.DEFAULT)
                 .bindProcessors().bindAll();
 
         bind(TagApplier.class).to(CoreTagApplier.class);

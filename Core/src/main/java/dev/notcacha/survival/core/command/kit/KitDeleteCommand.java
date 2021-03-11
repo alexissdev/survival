@@ -1,6 +1,6 @@
 package dev.notcacha.survival.core.command.kit;
 
-import dev.notcacha.survival.api.cache.ObjectCache;
+import dev.notcacha.survival.api.cache.ModelCache;
 import dev.notcacha.survival.api.kit.Kit;
 import dev.notcacha.survival.api.processor.ModelProcessor;
 import me.fixeddev.commandflow.annotated.CommandClass;
@@ -20,7 +20,7 @@ public class KitDeleteCommand implements CommandClass {
     @Inject
     private MessageHandler messageHandler;
     @Inject
-    private ObjectCache<Kit> kitObjectCache;
+    private ModelCache<Kit> kitModelCache;
     @Inject
     @Named("delete")
     private ModelProcessor<Kit> kitModelDeleteProcessor;
@@ -33,7 +33,7 @@ public class KitDeleteCommand implements CommandClass {
             return true;
         }
 
-        Optional<Kit> kitOptional = kitObjectCache.findIfPresent(kitId);
+        Optional<Kit> kitOptional = kitModelCache.findIfPresent(kitId);
 
         if (!kitOptional.isPresent()) {
             messageHandler.sendReplacing(player, "default", "kit.not-exists", "%kit_id%", kitId);

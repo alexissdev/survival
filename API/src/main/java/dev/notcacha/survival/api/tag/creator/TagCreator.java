@@ -35,10 +35,10 @@ public interface TagCreator {
          * @return New {@link TagProperties} of array.
          */
 
-        static TagProperties ofArray(Object[] properties) {
+        static TagProperties ofArray(Object... properties) {
             Validate.nonNull(properties, "The properties array of TagProperties is null.");
 
-            if (properties.length < 4) {
+            if (properties.length < 3) {
                 throw new IllegalArgumentException("Invalid array properties of TagProperties creator.");
             }
 
@@ -76,6 +76,10 @@ public interface TagCreator {
 
         return new Tag() {
 
+            private String prefix = tagProperties.getPrefix();
+            private String suffix = tagProperties.getSuffix();
+            private char colorCode = tagProperties.getColorCodeFromPlayerName();
+
             @Override
             public String getId() {
                 return tagProperties.getId();
@@ -83,17 +87,32 @@ public interface TagCreator {
 
             @Override
             public String getPrefix() {
-                return tagProperties.getPrefix();
+                return prefix;
+            }
+
+            @Override
+            public void setPrefix(String prefix) {
+                this.prefix = prefix;
             }
 
             @Override
             public String getSuffix() {
-                return tagProperties.getSuffix();
+                return suffix;
+            }
+
+            @Override
+            public void setSuffix(String suffix) {
+                this.suffix = suffix;
             }
 
             @Override
             public char getColorCodeFromPlayerName() {
-                return tagProperties.getColorCodeFromPlayerName();
+                return colorCode;
+            }
+
+            @Override
+            public void setColorCodeFromPlayerName(char colorCode) {
+                this.colorCode = colorCode;
             }
         };
     }

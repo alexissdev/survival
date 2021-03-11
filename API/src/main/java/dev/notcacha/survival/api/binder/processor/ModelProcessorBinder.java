@@ -1,18 +1,25 @@
 package dev.notcacha.survival.api.binder.processor;
 
 import dev.notcacha.survival.api.model.SavableModel;
-import dev.notcacha.survival.api.processor.ModelDeleteProcessor;
 import dev.notcacha.survival.api.processor.Processor;
 
 public interface ModelProcessorBinder<T extends SavableModel> {
 
     /**
-     * Bind the {@link ModelDeleteProcessor} from {@link T} model.
+     * Bind the ModelDeleteProcessor from {@link T} model.
      *
      * @return This class instance.
      */
 
     ModelProcessorBinder<T> bindDelete();
+
+    /**
+     * Bind the CachedModelProcessor from {@link T} model.
+     *
+     * @return This class instance.
+     */
+
+    ModelProcessorBinder<T> bindCached();
 
     /**
      * Bind an {@link Processor} external to the program.

@@ -1,9 +1,10 @@
 package dev.notcacha.survival.core.command.kit;
 
-import dev.notcacha.survival.api.cache.ObjectCache;
+import dev.notcacha.survival.api.exception.ProcessorException;
 import dev.notcacha.survival.api.item.SerializableItem;
 import dev.notcacha.survival.api.kit.Kit;
 import dev.notcacha.survival.api.kit.builder.KitBuilder;
+import dev.notcacha.survival.api.processor.ModelProcessor;
 import dev.notcacha.survival.core.kit.creator.KitCreatorSettings;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
@@ -14,6 +15,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,19 +25,14 @@ public class KitCreateCommand implements CommandClass {
     @Inject
     private MessageHandler messageHandler;
     @Inject
-    private ObjectCache<Kit> kitObjectCache;
+    @Named("cached")
+    private ModelProcessor<Kit> cachedModelProcessor;
 
 
     @Command(names = "")
     public boolean create(@Sender Player player, @OptArg String kitId, @OptArg KitCreatorSettings settings) {
         if (kitId == null) {
             messageHandler.send(player, "kit.create.usage");
-
-            return true;
-        }
-
-        if (kitObjectCache.ifPresent(kitId)) {
-            messageHandler.sendReplacing(player, "default", "kit.exists", "%kit_id%", kitId);
 
             return true;
         }
@@ -70,7 +67,12 @@ public class KitCreateCommand implements CommandClass {
                 armorContents
         ).build();
 
-        kitObjectCache.addObject(kit);
+        try  {
+            cachedModelProcessor.process(kit);
+        } catch (ProcessorException ignored) {
+            messageHandler.sendReplacing(player, "default", "kit.exists", "%kit_id%", kitId);
+            return true;
+        }
 
         messageHandler.sendReplacing(player, "default", "kit.create.message", "%kit_id%", kitId);
         return true;

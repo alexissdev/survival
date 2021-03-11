@@ -14,7 +14,7 @@ import org.bukkit.entity.Player;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-@Command(names = {"create", "add"})
+@Command(names = {"create", "add"}, permission = "survival.tag.create")
 public class TagCreateCommand implements CommandClass {
 
     @Inject

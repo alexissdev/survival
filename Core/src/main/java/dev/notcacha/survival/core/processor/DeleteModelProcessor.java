@@ -25,7 +25,6 @@ public class DeleteModelProcessor<T extends SavableModel> implements ModelProces
     @Override
     public void process(T model) {
         objectCache.removeObject(model.getId());
-
         modelStorage.delete(model.getId());
     }
 }

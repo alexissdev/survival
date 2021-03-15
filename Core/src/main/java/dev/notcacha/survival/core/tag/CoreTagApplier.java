@@ -15,7 +15,7 @@ import java.util.Optional;
 @Singleton
 public class CoreTagApplier implements TagApplier {
 
-    private static final String TEAM_FORMAT = "tag_%s";
+    private static final String TEAM_FORMAT = "tag_%s_%s";
 
     @Inject
     private ModelMatcher<Tag> tagModelMatcher;
@@ -35,10 +35,10 @@ public class CoreTagApplier implements TagApplier {
 
             Tag tag = tagOptionalResponse.get();
 
-            Team team = playerScoreboard.getTeam(String.format(TEAM_FORMAT, player.getName()));
+            Team team = playerScoreboard.getTeam(String.format(TEAM_FORMAT, tag.getId(), player.getName()));
 
             if (team == null) {
-                team = playerScoreboard.registerNewTeam(String.format(TEAM_FORMAT, player.getName()));
+                team = playerScoreboard.registerNewTeam(String.format(TEAM_FORMAT, tag.getId(), player.getName()));
             }
 
             team.setPrefix(

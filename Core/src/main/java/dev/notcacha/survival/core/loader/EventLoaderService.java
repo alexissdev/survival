@@ -17,11 +17,14 @@ import javax.inject.Singleton;
 @Singleton
 public class EventLoaderService implements Service {
 
-    @Inject
-    private Plugin plugin;
+    private final Plugin plugin;
+    private final EventProvider eventProvider;
 
     @Inject
-    private EventProvider eventProvider;
+    public EventLoaderService(Plugin plugin, EventProvider eventProvider) {
+        this.plugin = plugin;
+        this.eventProvider = eventProvider;
+    }
 
     @Override
     public void start() {
@@ -44,22 +47,24 @@ public class EventLoaderService implements Service {
     @Singleton
     private static class EventProvider  {
 
-        @Inject
-        private PlayerJoinListener playerJoinListener;
-        @Inject
-        private PlayerQuitListener playerQuitListener;
-        @Inject
-        private PlayerMoveListener playerMoveListener;
+        private final PlayerJoinListener playerJoinListener;
+        private final PlayerQuitListener playerQuitListener;
+        private final PlayerMoveListener playerMoveListener;
+        private final UserJoinListener userJoinListener;
+        private final UserLeaveListener userLeaveListener;
+        private final KothEnterListener kothEnterListener;
+        private final KothLeaveListener kothLeaveListener;
 
         @Inject
-        private UserJoinListener userJoinListener;
-        @Inject
-        private UserLeaveListener userLeaveListener;
-        @Inject
-
-        private KothEnterListener kothEnterListener;
-        @Inject
-        private KothLeaveListener kothLeaveListener;
+        private EventProvider(PlayerJoinListener playerJoinListener, PlayerQuitListener playerQuitListener, PlayerMoveListener playerMoveListener, UserJoinListener userJoinListener, UserLeaveListener userLeaveListener, KothEnterListener kothEnterListener, KothLeaveListener kothLeaveListener) {
+            this.playerJoinListener = playerJoinListener;
+            this.playerQuitListener = playerQuitListener;
+            this.playerMoveListener = playerMoveListener;
+            this.userJoinListener = userJoinListener;
+            this.userLeaveListener = userLeaveListener;
+            this.kothEnterListener = kothEnterListener;
+            this.kothLeaveListener = kothLeaveListener;
+        }
 
         public Listener[] get() {
             return new Listener[]{

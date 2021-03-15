@@ -19,10 +19,14 @@ import java.util.concurrent.CompletableFuture;
 
 public class PlayerMoveListener implements Listener {
 
+    private final ListeningExecutorService executorService;
+    private final ModelCache<Koth> kothModelCache;
+
     @Inject
-    private ListeningExecutorService executorService;
-    @Inject
-    private ModelCache<Koth> kothModelCache;
+    public PlayerMoveListener(ListeningExecutorService executorService, ModelCache<Koth> kothModelCache) {
+        this.executorService = executorService;
+        this.kothModelCache = kothModelCache;
+    }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
     public void onPlayerMove(PlayerMoveEvent event) {

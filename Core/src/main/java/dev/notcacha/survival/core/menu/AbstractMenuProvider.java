@@ -35,7 +35,7 @@ public abstract class AbstractMenuProvider implements MenuProvider {
      * @return an object {@link T} if it is present in the cache
      */
 
-    public <T> T getIfPresent(String identifier) {
+    protected  <T> T getIfPresent(String identifier) {
         return (T) objectMap.get(identifier);
     }
 

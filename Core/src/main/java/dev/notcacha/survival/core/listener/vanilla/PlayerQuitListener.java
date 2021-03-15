@@ -14,8 +14,12 @@ import javax.inject.Inject;
 
 public class PlayerQuitListener implements Listener {
 
+    private final ModelCache<User> userModelCache;
+
     @Inject
-    private ModelCache<User> userModelCache;
+    public PlayerQuitListener(ModelCache<User> userModelCache) {
+        this.userModelCache = userModelCache;
+    }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
     public void onPlayerQuit(PlayerQuitEvent event) {

@@ -17,16 +17,10 @@ public class CoreLanguageProvider implements Linguist<Player> {
 
     @Override
     public @Nullable String getLanguage(Player player) {
-        User user;
-
-        try {
-            user = userModelCache.findIfPresent(player.getUniqueId().toString()).orElse(null);
-        } catch (Exception ex) {
-            Bukkit.getLogger().log(Level.SEVERE, "Error while finding user data for " + player.getName(), ex);
-            return null;
-        }
+        User user = userModelCache.findIfPresent(player.getUniqueId().toString()).orElse(null);
 
         if (user == null) {
+            Bukkit.getLogger().log(Level.SEVERE, "Error while finding user data for " + player.getName());
             return null;
         }
 

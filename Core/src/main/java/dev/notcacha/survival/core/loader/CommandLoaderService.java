@@ -19,15 +19,18 @@ import javax.inject.Singleton;
 @Singleton
 public class CommandLoaderService implements Service {
 
-    @Inject
-    private Plugin plugin;
-    @Inject
-    private CommandManager commandManager;
-    @Inject
-    private Injector injector;
+    private final Plugin plugin;
+    private final CommandManager commandManager;
+    private final Injector injector;
+    private final CommandProvider commandProvider;
 
     @Inject
-    private CommandProvider commandProvider;
+    public CommandLoaderService(Plugin plugin, CommandManager commandManager, Injector injector, CommandProvider commandProvider) {
+        this.plugin = plugin;
+        this.commandManager = commandManager;
+        this.injector = injector;
+        this.commandProvider = commandProvider;
+    }
 
     @Override
     public void start() {
@@ -64,16 +67,20 @@ public class CommandLoaderService implements Service {
     @Singleton
     private static class CommandProvider {
 
+        private final StatisticCommand statisticCommand;
+        private final WarpCommand warpCommand;
+        private final SpawnCommand spawnCommand;
+        private final SetSpawnCommand setSpawnCommand;
+        private final KitCommand kitCommand;
+
         @Inject
-        private StatisticCommand statisticCommand;
-        @Inject
-        private WarpCommand warpCommand;
-        @Inject
-        private SpawnCommand spawnCommand;
-        @Inject
-        private SetSpawnCommand setSpawnCommand;
-        @Inject
-        private KitCommand kitCommand;
+        private CommandProvider(StatisticCommand statisticCommand, WarpCommand warpCommand, SpawnCommand spawnCommand, SetSpawnCommand setSpawnCommand, KitCommand kitCommand) {
+            this.statisticCommand = statisticCommand;
+            this.warpCommand = warpCommand;
+            this.spawnCommand = spawnCommand;
+            this.setSpawnCommand = setSpawnCommand;
+            this.kitCommand = kitCommand;
+        }
 
         public CommandClass[] get() {
             return new CommandClass[]{

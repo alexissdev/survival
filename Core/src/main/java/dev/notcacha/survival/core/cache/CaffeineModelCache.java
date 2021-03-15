@@ -21,7 +21,7 @@ public class CaffeineModelCache<T extends SavableModel> implements ModelCache<T>
     public CaffeineModelCache(ModelStorage<T> modelStorage) {
         objectCache = Caffeine.newBuilder()
                 .maximumSize(1000)
-                .expireAfterAccess(Duration.of(5, ChronoUnit.MINUTES))
+                .expireAfterAccess(Duration.of(120, ChronoUnit.SECONDS))
                 .softValues()
                 .<String, T>removalListener((key, value, cause) -> modelStorage.save(value))
                 .build(modelId -> {

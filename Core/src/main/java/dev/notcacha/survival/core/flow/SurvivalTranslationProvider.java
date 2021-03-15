@@ -13,8 +13,12 @@ import javax.inject.Singleton;
 @Singleton
 public class SurvivalTranslationProvider extends DefaultMapTranslationProvider {
 
+    private final MessageHandler messageHandler;
+
     @Inject
-    private MessageHandler messageHandler;
+    public SurvivalTranslationProvider(MessageHandler messageHandler) {
+        this.messageHandler = messageHandler;
+    }
 
     @Override
     public String getTranslation(Namespace namespace, String key) {

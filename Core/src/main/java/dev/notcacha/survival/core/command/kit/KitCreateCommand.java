@@ -8,6 +8,7 @@ import dev.notcacha.survival.api.processor.ModelProcessor;
 import dev.notcacha.survival.core.kit.creator.KitCreatorSettings;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
+import me.fixeddev.commandflow.annotated.annotation.Named;
 import me.fixeddev.commandflow.annotated.annotation.OptArg;
 import me.fixeddev.commandflow.bukkit.annotation.Sender;
 import me.yushust.message.MessageHandler;
@@ -15,18 +16,20 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 import java.util.HashMap;
 import java.util.Map;
 
 @Command(names = {"create", "add"}, permission = "survival.kit.create")
 public class KitCreateCommand implements CommandClass {
 
+    private final MessageHandler messageHandler;
+    private final ModelProcessor<Kit> cachedModelProcessor;
+
     @Inject
-    private MessageHandler messageHandler;
-    @Inject
-    @Named("cached")
-    private ModelProcessor<Kit> cachedModelProcessor;
+    public KitCreateCommand(MessageHandler messageHandler, @Named("cached") ModelProcessor<Kit> cachedModelProcessor) {
+        this.messageHandler = messageHandler;
+        this.cachedModelProcessor = cachedModelProcessor;
+    }
 
 
     @Command(names = "")

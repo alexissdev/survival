@@ -12,10 +12,14 @@ import javax.inject.Inject;
 @Command(names = "setspawn", permission = "survival.spawn.set")
 public class SetSpawnCommand implements CommandClass {
 
+    private final MessageHandler messageHandler;
+    private final SpawnManager spawnManager;
+
     @Inject
-    private MessageHandler messageHandler;
-    @Inject
-    private SpawnManager spawnManager;
+    public SetSpawnCommand(MessageHandler messageHandler, SpawnManager spawnManager) {
+        this.messageHandler = messageHandler;
+        this.spawnManager = spawnManager;
+    }
 
     @Command(names = "")
     public boolean setSpawn(@Sender Player player) {

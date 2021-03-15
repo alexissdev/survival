@@ -18,8 +18,12 @@ import javax.inject.Inject;
 })
 public class KitCommand implements CommandClass {
 
+    private final MessageHandler messageHandler;
+
     @Inject
-    private MessageHandler messageHandler;
+    public KitCommand(MessageHandler messageHandler) {
+        this.messageHandler = messageHandler;
+    }
 
     @Command(names = "")
     public boolean kit(@Sender Player player) {

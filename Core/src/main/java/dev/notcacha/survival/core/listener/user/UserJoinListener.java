@@ -14,10 +14,14 @@ import javax.inject.Inject;
 
 public class UserJoinListener implements Listener {
 
+    private final ScoreboardProvider scoreboardProvider;
+    private final TagApplier tagApplier;
+
     @Inject
-    private ScoreboardProvider scoreboardProvider;
-    @Inject
-    private TagApplier tagApplier;
+    public UserJoinListener(ScoreboardProvider scoreboardProvider, TagApplier tagApplier) {
+        this.scoreboardProvider = scoreboardProvider;
+        this.tagApplier = tagApplier;
+    }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
     public void onUserJoin(UserJoinEvent event) {

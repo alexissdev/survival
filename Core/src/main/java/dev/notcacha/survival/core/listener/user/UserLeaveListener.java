@@ -10,8 +10,12 @@ import javax.inject.Inject;
 
 public class UserLeaveListener implements Listener {
 
+    private final ScoreboardManager scoreboardManager;
+
     @Inject
-    private ScoreboardManager scoreboardManager;
+    public UserLeaveListener(ScoreboardManager scoreboardManager) {
+        this.scoreboardManager = scoreboardManager;
+    }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
     public void onUserLeave(UserLeaveEvent event) {

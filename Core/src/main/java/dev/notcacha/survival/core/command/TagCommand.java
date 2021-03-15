@@ -11,8 +11,12 @@ import javax.inject.Inject;
 @Command(names = "tag", permission = "survival.tag")
 public class TagCommand implements CommandClass {
 
+    private final MessageHandler messageHandler;
+
     @Inject
-    private MessageHandler messageHandler;
+    public TagCommand(MessageHandler messageHandler) {
+        this.messageHandler = messageHandler;
+    }
 
     @Command(names = "")
     public boolean tag(@Sender Player player) {

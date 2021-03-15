@@ -15,10 +15,14 @@ import javax.inject.Inject;
 @Command(names = {"create", "add", "c"}, permission = "survival.warp.create")
 public class WarpCreateCommand implements CommandClass {
 
+    private final MessageHandler messageHandler;
+    private final ModelCache<Warp> warpModelCache;
+
     @Inject
-    private MessageHandler messageHandler;
-    @Inject
-    private ModelCache<Warp> warpModelCache;
+    public WarpCreateCommand(MessageHandler messageHandler, ModelCache<Warp> warpModelCache) {
+        this.messageHandler = messageHandler;
+        this.warpModelCache = warpModelCache;
+    }
 
     @Command(names = "")
     public boolean create(@Sender Player player, @OptArg String warpName) {

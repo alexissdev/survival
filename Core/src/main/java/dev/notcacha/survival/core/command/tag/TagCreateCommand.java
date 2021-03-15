@@ -6,22 +6,25 @@ import dev.notcacha.survival.api.tag.Tag;
 import dev.notcacha.survival.api.tag.creator.TagCreator;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
+import me.fixeddev.commandflow.annotated.annotation.Named;
 import me.fixeddev.commandflow.annotated.annotation.OptArg;
 import me.fixeddev.commandflow.bukkit.annotation.Sender;
 import me.yushust.message.MessageHandler;
 import org.bukkit.entity.Player;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 
 @Command(names = {"create", "add"}, permission = "survival.tag.create")
 public class TagCreateCommand implements CommandClass {
 
+    private final MessageHandler messageHandler;
+    private final ModelProcessor<Tag> cachedModelProcessor;
+
     @Inject
-    private MessageHandler messageHandler;
-    @Inject
-    @Named("cached")
-    private ModelProcessor<Tag> cachedModelProcessor;
+    public TagCreateCommand(MessageHandler messageHandler, @Named("cached") ModelProcessor<Tag> cachedModelProcessor) {
+        this.messageHandler = messageHandler;
+        this.cachedModelProcessor = cachedModelProcessor;
+    }
 
     @Command(names = "")
     public boolean create(@Sender Player player, @OptArg String tagId) {

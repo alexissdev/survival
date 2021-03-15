@@ -5,25 +5,28 @@ import dev.notcacha.survival.api.kit.Kit;
 import dev.notcacha.survival.api.processor.ModelProcessor;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
+import me.fixeddev.commandflow.annotated.annotation.Named;
 import me.fixeddev.commandflow.annotated.annotation.OptArg;
 import me.fixeddev.commandflow.bukkit.annotation.Sender;
 import me.yushust.message.MessageHandler;
 import org.bukkit.entity.Player;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 import java.util.Optional;
 
 @Command(names = {"delete", "d", "remove", "r"}, permission = "survival.kit.delete")
 public class KitDeleteCommand implements CommandClass {
 
+    private final MessageHandler messageHandler;
+    private final ModelCache<Kit> kitModelCache;
+    private final ModelProcessor<Kit> kitModelDeleteProcessor;
+
     @Inject
-    private MessageHandler messageHandler;
-    @Inject
-    private ModelCache<Kit> kitModelCache;
-    @Inject
-    @Named("delete")
-    private ModelProcessor<Kit> kitModelDeleteProcessor;
+    public KitDeleteCommand(MessageHandler messageHandler, ModelCache<Kit> kitModelCache, @Named("delete") ModelProcessor<Kit> kitModelDeleteProcessor) {
+        this.messageHandler = messageHandler;
+        this.kitModelCache = kitModelCache;
+        this.kitModelDeleteProcessor = kitModelDeleteProcessor;
+    }
 
     @Command(names = "")
     public boolean delete(@Sender Player player, @OptArg String kitId) {

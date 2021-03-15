@@ -13,10 +13,14 @@ public class JsonFileCreator {
 
     public final static String FILE_NAME_FORMAT = "%s.json";
 
+    private final ObjectMapper objectMapper;
+    private final Plugin plugin;
+
     @Inject
-    private ObjectMapper objectMapper;
-    @Inject
-    private Plugin plugin;
+    public JsonFileCreator(ObjectMapper objectMapper, Plugin plugin) {
+        this.objectMapper = objectMapper;
+        this.plugin = plugin;
+    }
 
     public JsonFile create(String folderName, String fileName) {
         return new JsonFile(

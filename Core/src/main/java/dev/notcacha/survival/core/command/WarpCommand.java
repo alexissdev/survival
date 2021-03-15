@@ -20,8 +20,12 @@ import javax.inject.Inject;
 })
 public class WarpCommand implements CommandClass {
 
+    private final MessageHandler messageHandler;
+
     @Inject
-    private MessageHandler messageHandler;
+    public WarpCommand(MessageHandler messageHandler) {
+        this.messageHandler = messageHandler;
+    }
 
     @Command(names = "")
     public boolean main(@Sender Player player) {

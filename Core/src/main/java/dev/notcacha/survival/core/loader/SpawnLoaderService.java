@@ -13,21 +13,23 @@ import java.util.Map;
 @Singleton
 public class SpawnLoaderService implements Service {
 
+    private final SpawnManager spawnManager;
+    private final Plugin plugin;
+
     @Inject
-    private SpawnManager spawnManager;
-    @Inject
-    private Plugin plugin;
+    public SpawnLoaderService(SpawnManager spawnManager, Plugin plugin) {
+        this.spawnManager = spawnManager;
+        this.plugin = plugin;
+    }
 
     @Override
     public void start() {
-        YamlFile file = new YamlFile(plugin, "spawn");
-
-        if (!file.contains("spawn")) {
+        if (!plugin.getConfig().contains("spawn")) {
             plugin.getLogger().info("[Spawn] The spawn not exists in spawn.yml!");
             return;
         }
 
-        Map<String, Object> serializeLocation = (Map<String, Object>) file.get("spawn");
+        Map<String, Object> serializeLocation = (Map<String, Object>) plugin.getConfig().get("spawn");
 
         Location location = Location.deserialize(serializeLocation);
 
@@ -36,14 +38,12 @@ public class SpawnLoaderService implements Service {
 
     @Override
     public void stop() {
-        YamlFile file = new YamlFile(plugin, "spawn");
-
         if (spawnManager.getSpawnLocation() == null) {
             return;
         }
 
         Map<String, Object> serializeLocation = spawnManager.getSpawnLocation().serialize();
 
-        file.set("spawn", serializeLocation);
+        plugin.getConfig().set("spawn", serializeLocation);
     }
 }

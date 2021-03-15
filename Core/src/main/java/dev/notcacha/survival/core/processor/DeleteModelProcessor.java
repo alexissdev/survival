@@ -11,10 +11,14 @@ import javax.inject.Singleton;
 @Singleton
 public class DeleteModelProcessor<T extends SavableModel> implements ModelProcessor<T> {
 
+    private final ModelCache<T> modelCache;
+    private final ModelStorage<T> modelStorage;
+
     @Inject
-    private ModelCache<T> modelCache;
-    @Inject
-    private ModelStorage<T> modelStorage;
+    public DeleteModelProcessor(ModelCache<T> modelCache, ModelStorage<T> modelStorage) {
+        this.modelCache = modelCache;
+        this.modelStorage = modelStorage;
+    }
 
     /**
      * Start the delete processor.

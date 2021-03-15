@@ -11,8 +11,12 @@ import javax.inject.Singleton;
 @Singleton
 public class CachedModelProcessor<T extends SavableModel> implements ModelProcessor<T> {
 
+    private final ModelCache<T> modelCache;
+
     @Inject
-    private ModelCache<T> modelCache;
+    public CachedModelProcessor(ModelCache<T> modelCache) {
+        this.modelCache = modelCache;
+    }
 
     /**
      * Add model to cache.

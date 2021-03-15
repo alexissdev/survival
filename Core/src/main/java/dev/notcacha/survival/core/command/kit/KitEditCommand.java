@@ -12,8 +12,12 @@ import javax.inject.Inject;
 @Command(names = {"edit", "e"}, permission = "survival.kit.edit")
 public class KitEditCommand implements CommandClass {
 
+    private final MessageHandler messageHandler;
+
     @Inject
-    private MessageHandler messageHandler;
+    public KitEditCommand(MessageHandler messageHandler) {
+        this.messageHandler = messageHandler;
+    }
 
     @Command(names = "")
     public boolean edit(@Sender Player player, @OptArg String kitId) {

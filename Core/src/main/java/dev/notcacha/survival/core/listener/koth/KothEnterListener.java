@@ -14,10 +14,14 @@ import javax.inject.Inject;
 
 public class KothEnterListener implements Listener {
 
+    private final MessageHandler messageHandler;
+    private final ScoreboardProvider scoreboardProvider;
+
     @Inject
-    private MessageHandler messageHandler;
-    @Inject
-    private ScoreboardProvider scoreboardProvider;
+    public KothEnterListener(MessageHandler messageHandler, ScoreboardProvider scoreboardProvider) {
+        this.messageHandler = messageHandler;
+        this.scoreboardProvider = scoreboardProvider;
+    }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
     public void onKothEnterEvent(KothEnterEvent event) {

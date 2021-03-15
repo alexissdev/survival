@@ -16,10 +16,14 @@ import java.util.Optional;
 @Singleton
 public class CoreModelMatcher<T extends SavableModel> implements ModelMatcher<T> {
 
+    private final ModelCache<T> modelModelCache;
+    private final ListeningExecutorService executorService;
+
     @Inject
-    private ModelCache<T> modelModelCache;
-    @Inject
-    private ListeningExecutorService executorService;
+    public CoreModelMatcher(ModelCache<T> modelModelCache, ListeningExecutorService executorService) {
+        this.modelModelCache = modelModelCache;
+        this.executorService = executorService;
+    }
 
     @Override
     public Optional<T> findModelByIdSync(String modelId) {

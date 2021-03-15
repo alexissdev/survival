@@ -11,8 +11,12 @@ import javax.inject.Inject;
 
 public class KothLeaveListener implements Listener {
 
+    private final ScoreboardProvider scoreboardProvider;
+
     @Inject
-    private ScoreboardProvider scoreboardProvider;
+    public KothLeaveListener(ScoreboardProvider scoreboardProvider) {
+        this.scoreboardProvider = scoreboardProvider;
+    }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
     public void onKothLeave(KothLeaveEvent event) {

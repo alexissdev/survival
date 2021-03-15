@@ -16,10 +16,14 @@ import java.util.Optional;
 
 public class StatisticCommand implements CommandClass {
 
+    private final ModelCache<User> userModelCache;
+    private final MessageHandler messageHandler;
+
     @Inject
-    private ModelCache<User> userModelCache;
-    @Inject
-    private MessageHandler messageHandler;
+    public StatisticCommand(ModelCache<User> userModelCache, MessageHandler messageHandler) {
+        this.userModelCache = userModelCache;
+        this.messageHandler = messageHandler;
+    }
 
     @Command(names = "stats")
     public boolean main(@Sender Player player, @OptArg OfflinePlayer target) {

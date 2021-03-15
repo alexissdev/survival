@@ -41,15 +41,4 @@ public interface ModelCache<O extends SavableModel> {
 
     Set<O> getAllPresent();
 
-    /**
-     * The type's of cache.
-     */
-
-    enum Type {
-
-        DEFAULT,
-        TEMPORARY
-
-    }
-
 }

@@ -1,7 +1,6 @@
 package dev.notcacha.survival.api.binder.data;
 
 
-import dev.notcacha.survival.api.binder.ModelDataBinder;
 import dev.notcacha.survival.api.util.Validate;
 import me.yushust.inject.key.TypeReference;
 

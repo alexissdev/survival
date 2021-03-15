@@ -27,7 +27,7 @@ public class JsonFile {
         this.fileName = (fileName.endsWith(".json") ? fileName : fileName + ".json");
 
         this.file = new File(folder, fileName);
-        create();
+        this.create();
     }
 
     private void create() {

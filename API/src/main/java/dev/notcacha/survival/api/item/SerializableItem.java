@@ -2,6 +2,7 @@ package dev.notcacha.survival.api.item;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import dev.notcacha.survival.api.model.SavableModel;
 import dev.notcacha.survival.api.util.Colorize;
 import dev.notcacha.survival.api.util.Validate;
 import org.bukkit.Material;
@@ -12,6 +13,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * Item that can be built to an {@link org.bukkit.inventory.ItemStack}

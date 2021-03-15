@@ -1,31 +1,30 @@
 package dev.notcacha.survival.core.binder;
 
-import dev.notcacha.survival.api.binder.ModelDataBinder;
+import dev.notcacha.survival.api.binder.ModelBinder;
+import dev.notcacha.survival.api.binder.cache.ModelCacheBinder;
 import dev.notcacha.survival.api.binder.data.ModelBinderData;
 import dev.notcacha.survival.api.binder.processor.ModelProcessorBinder;
-import dev.notcacha.survival.api.cache.ModelCache;
 import dev.notcacha.survival.api.matcher.ModelMatcher;
 import dev.notcacha.survival.api.model.SavableModel;
 import dev.notcacha.survival.api.storage.ModelStorage;
 import dev.notcacha.survival.api.util.Validate;
+import dev.notcacha.survival.core.binder.cache.CoreModelCacheBinder;
 import dev.notcacha.survival.core.binder.processor.CoreModelProcessorBinder;
-import dev.notcacha.survival.core.cache.CaffeineModelCache;
-import dev.notcacha.survival.core.cache.MapModelCache;
 import dev.notcacha.survival.core.matcher.CoreModelMatcher;
 import dev.notcacha.survival.core.storage.JsonModelStorage;
 import dev.notcacha.survival.core.util.TypeReferenceUtil;
 import me.yushust.inject.Binder;
 
-public class CoreModelDataBinder<T extends SavableModel> implements ModelDataBinder<T> {
+public class CoreModelBinder<T extends SavableModel> implements ModelBinder<T> {
 
     private final Binder binder;
     private final Class<T> modelClass;
 
-    public CoreModelDataBinder(Binder binder, Class<T> modelClass) {
+    public CoreModelBinder(Binder binder, Class<T> modelClass) {
         this(binder, modelClass, ModelBinderData.create(TypeReferenceUtil.getTypeOf(modelClass)));
     }
 
-    public CoreModelDataBinder(Binder binder, Class<T> modelClass, ModelBinderData<T> modelData) {
+    public CoreModelBinder(Binder binder, Class<T> modelClass, ModelBinderData<T> modelData) {
         this.binder = Validate.nonNull(binder, "The binder of ModelDataBinder is null.");
         this.modelClass = Validate.nonNull(modelClass, "The model class from ModelDataBinder is null.");
 
@@ -39,7 +38,7 @@ public class CoreModelDataBinder<T extends SavableModel> implements ModelDataBin
     }
 
     @Override
-    public ModelDataBinder<T> bindStorage() {
+    public ModelBinder<T> bindStorage() {
         binder.bind(
                 TypeReferenceUtil.getParameterized(ModelStorage.class, modelClass)
         ).to(
@@ -50,33 +49,7 @@ public class CoreModelDataBinder<T extends SavableModel> implements ModelDataBin
     }
 
     @Override
-    public ModelDataBinder<T> bindCache(ModelCache.Type type) {
-
-        switch (type) {
-
-            case TEMPORARY: {
-                binder.bind(
-                        TypeReferenceUtil.getParameterized(ModelCache.class, modelClass)
-                ).to(
-                        TypeReferenceUtil.getParameterized(CaffeineModelCache.class, modelClass)
-                ).singleton();
-            }
-
-            case DEFAULT: {
-                binder.bind(
-                        TypeReferenceUtil.getParameterized(ModelCache.class, modelClass)
-                ).to(
-                        TypeReferenceUtil.getParameterized(MapModelCache.class, modelClass)
-                ).singleton();
-            }
-
-        }
-
-        return this;
-    }
-
-    @Override
-    public ModelDataBinder<T> bindMatcher() {
+    public ModelBinder<T> bindMatcher() {
         binder.bind(
                 TypeReferenceUtil.getParameterized(ModelMatcher.class, modelClass)
         ).to(
@@ -87,15 +60,20 @@ public class CoreModelDataBinder<T extends SavableModel> implements ModelDataBin
     }
 
     @Override
-    public ModelProcessorBinder<T> bindProcessors() {
-        return new CoreModelProcessorBinder<>(binder, modelClass);
+    public ModelCacheBinder<T> bindCache() {
+        return new CoreModelCacheBinder<>(binder, modelClass, this);
     }
 
     @Override
-    public <M extends SavableModel> ModelDataBinder<M> newBinder(Class<M> modelClass) {
+    public ModelProcessorBinder<T> bindProcessors() {
+        return new CoreModelProcessorBinder<>(binder, modelClass, this);
+    }
+
+    @Override
+    public <M extends SavableModel> ModelBinder<M> newBinder(Class<M> modelClass) {
         Validate.nonNull(modelClass, "The new model class from new binder is null.");
 
-        return new CoreModelDataBinder<>(binder, modelClass);
+        return new CoreModelBinder<>(binder, modelClass);
     }
 
 }

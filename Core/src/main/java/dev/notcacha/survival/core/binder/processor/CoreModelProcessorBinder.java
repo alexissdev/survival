@@ -1,5 +1,6 @@
 package dev.notcacha.survival.core.binder.processor;
 
+import dev.notcacha.survival.api.binder.ModelBinder;
 import dev.notcacha.survival.api.binder.processor.ModelProcessorBinder;
 import dev.notcacha.survival.api.model.SavableModel;
 import dev.notcacha.survival.api.processor.ModelProcessor;
@@ -17,9 +18,12 @@ public class CoreModelProcessorBinder<T extends SavableModel> implements ModelPr
     private final Binder binder;
     private final Class<T> modelClass;
 
-    public CoreModelProcessorBinder(Binder binder, Class<T> modelClass) {
+    private final ModelBinder<T> modelBinderBack;
+
+    public CoreModelProcessorBinder(Binder binder, Class<T> modelClass, ModelBinder<T> modelBinderBack) {
         this.binder = Validate.nonNull(binder, String.format(ERROR_MESSAGE, "binder"));
         this.modelClass = Validate.nonNull(modelClass, String.format(ERROR_MESSAGE, "model class"));
+        this.modelBinderBack = modelBinderBack;
     }
 
     @Override
@@ -31,7 +35,7 @@ public class CoreModelProcessorBinder<T extends SavableModel> implements ModelPr
                 "delete"
         ).to(
                 TypeReferenceUtil.getParameterized(DeleteModelProcessor.class, modelClass)
-        );
+        ).singleton();
 
         return this;
     }
@@ -45,7 +49,7 @@ public class CoreModelProcessorBinder<T extends SavableModel> implements ModelPr
                 "cached"
         ).to(
                 TypeReferenceUtil.getParameterized(CachedModelProcessor.class, modelClass)
-        );
+        ).singleton();
 
         return this;
     }
@@ -65,17 +69,15 @@ public class CoreModelProcessorBinder<T extends SavableModel> implements ModelPr
     }
 
     @Override
-    public <Model extends SavableModel> ModelProcessorBinder<Model> newBinder(Class<Model> modelClass) {
-        Validate.nonNull(modelClass, String.format(ERROR_MESSAGE, "new model class"));
-
-        return new CoreModelProcessorBinder<>(binder, modelClass);
-    }
-
-    @Override
     public ModelProcessorBinder<T> bindAll() {
         bindDelete();
         bindCached();
 
         return this;
+    }
+
+    @Override
+    public ModelBinder<T> back() {
+        return modelBinderBack;
     }
 }

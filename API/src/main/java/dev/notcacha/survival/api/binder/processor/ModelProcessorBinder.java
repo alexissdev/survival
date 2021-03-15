@@ -1,9 +1,10 @@
 package dev.notcacha.survival.api.binder.processor;
 
+import dev.notcacha.survival.api.binder.back.ModelBinderBackLayout;
 import dev.notcacha.survival.api.model.SavableModel;
 import dev.notcacha.survival.api.processor.Processor;
 
-public interface ModelProcessorBinder<T extends SavableModel> {
+public interface ModelProcessorBinder<T extends SavableModel> extends ModelBinderBackLayout<T> {
 
     /**
      * Bind the ModelDeleteProcessor from {@link T} model.
@@ -30,12 +31,6 @@ public interface ModelProcessorBinder<T extends SavableModel> {
      */
 
     <P extends Processor, I extends P> ModelProcessorBinder<T> bindCustom(Class<P> processorClass, Class<I> implementProcessorClass);
-
-    /**
-     * @return New {@link ModelProcessorBinder} from {@link Model}.
-     */
-
-    <Model extends SavableModel> ModelProcessorBinder<Model> newBinder(Class<Model> modelClass);
 
     /**
      * Bind all processes that are available for the model {@link T}

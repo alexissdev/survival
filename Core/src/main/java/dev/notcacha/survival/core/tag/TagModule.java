@@ -1,11 +1,11 @@
 package dev.notcacha.survival.core.tag;
 
-import dev.notcacha.survival.api.binder.ModelDataBinder;
+import dev.notcacha.survival.api.binder.ModelBinder;
 import dev.notcacha.survival.api.binder.data.ModelBinderData;
 import dev.notcacha.survival.api.cache.ModelCache;
 import dev.notcacha.survival.api.tag.Tag;
 import dev.notcacha.survival.api.tag.applier.TagApplier;
-import dev.notcacha.survival.core.binder.CoreModelDataBinder;
+import dev.notcacha.survival.core.binder.CoreModelBinder;
 import dev.notcacha.survival.core.util.TypeReferenceUtil;
 import me.yushust.inject.AbstractModule;
 
@@ -13,7 +13,7 @@ public class TagModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        ModelDataBinder<Tag> modelDataBinder = new CoreModelDataBinder<>(
+        ModelBinder<Tag> modelBinder = new CoreModelBinder<>(
                 binder(),
                 Tag.class,
                 ModelBinderData.forStorage(
@@ -22,9 +22,11 @@ public class TagModule extends AbstractModule {
                 )
         );
 
-        modelDataBinder.bindStorage()
+        modelBinder.bindStorage()
                 .bindMatcher()
-                .bindCache(ModelCache.Type.DEFAULT)
+                .bindCache()
+                .bindDefault()
+                .back()
                 .bindProcessors().bindAll();
 
         bind(TagApplier.class).to(CoreTagApplier.class);

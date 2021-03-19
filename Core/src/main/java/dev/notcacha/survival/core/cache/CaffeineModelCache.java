@@ -32,11 +32,7 @@ public class CaffeineModelCache<T extends SavableModel> implements ModelCache<T>
                     );
 
                     if (modelList.get(0) == null) {
-                        modelStorage.findOne(modelId).callback(callback -> {
-                            Optional<T> modelResponse = callback.getResponse();
-
-                            modelResponse.ifPresent(t -> modelList.add(0, t));
-                        });
+                        modelStorage.findOne(modelId).whenComplete((object, error) -> object.ifPresent(t -> modelList.add(0, t)));
                     }
 
                     return modelList.get(0);

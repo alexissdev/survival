@@ -2,12 +2,8 @@ package dev.notcacha.survival.core.storage;
 
 import com.google.common.util.concurrent.ListeningExecutorService;
 import dev.notcacha.survival.api.binder.data.ModelBinderData;
-import dev.notcacha.survival.api.concurrent.AsyncResponse;
-import dev.notcacha.survival.api.concurrent.Response;
 import dev.notcacha.survival.api.model.SavableModel;
 import dev.notcacha.survival.api.storage.ModelStorage;
-import dev.notcacha.survival.core.concurrent.SimpleAsyncResponse;
-import dev.notcacha.survival.core.concurrent.WrappedResponse;
 import dev.notcacha.survival.core.file.JsonFile;
 import dev.notcacha.survival.core.file.creator.JsonFileCreator;
 
@@ -15,6 +11,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 
 @Singleton
 public class JsonModelStorage<T extends SavableModel> implements ModelStorage<T> {
@@ -45,12 +42,8 @@ public class JsonModelStorage<T extends SavableModel> implements ModelStorage<T>
     }
 
     @Override
-    public AsyncResponse<T> findOne(String id) {
-        return new SimpleAsyncResponse<>(executorService.submit(() -> {
-            Optional<T> response = findOneSync(id);
-
-            return response.map(model -> new WrappedResponse(Response.Status.SUCCESS, model)).orElseGet(() -> new WrappedResponse(Response.Status.ERROR, null));
-        }));
+    public CompletableFuture<Optional<T>> findOne(String id) {
+        return CompletableFuture.supplyAsync(() -> findOneSync(id), executorService);
     }
 
     @Override
@@ -59,23 +52,25 @@ public class JsonModelStorage<T extends SavableModel> implements ModelStorage<T>
     }
 
     @Override
-    public AsyncResponse<Set<T>> getAll() {
-        return new SimpleAsyncResponse<>(executorService.submit(() -> new WrappedResponse<>(Response.Status.SUCCESS, getAllSync())));
+    public CompletableFuture<Set<T>> getAll() {
+        return CompletableFuture.supplyAsync(this::getAllSync, executorService);
     }
 
     @Override
-    public AsyncResponse<Void> save(T object) {
-        return new SimpleAsyncResponse<>(executorService.submit(() -> {
+    public CompletableFuture<Void> save(T object) {
+        return CompletableFuture.supplyAsync(() -> {
+
             JsonFile modelFile = jsonFileCreator.create(folderName, String.format(JsonFileCreator.FILE_NAME_FORMAT, object.getId()));
 
             modelFile.write(object);
             return null;
-        }));
+        }, executorService);
     }
 
     @Override
-    public AsyncResponse<Void> delete(String id) {
-        return new SimpleAsyncResponse<>(executorService.submit(() -> {
+    public CompletableFuture<Void> delete(String id) {
+        return CompletableFuture.supplyAsync(() -> {
+
             JsonFile modelFile = jsonFileCreator.create(folderName, String.format(JsonFileCreator.FILE_NAME_FORMAT, id));
 
             if (modelFile.exists()) {
@@ -83,6 +78,6 @@ public class JsonModelStorage<T extends SavableModel> implements ModelStorage<T>
             }
 
             return null;
-        }));
+        }, executorService);
     }
 }

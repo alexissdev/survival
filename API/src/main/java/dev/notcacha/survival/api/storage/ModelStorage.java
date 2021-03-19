@@ -1,10 +1,10 @@
 package dev.notcacha.survival.api.storage;
 
-import dev.notcacha.survival.api.concurrent.AsyncResponse;
 import dev.notcacha.survival.api.model.SavableModel;
 
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 
 public interface ModelStorage<T extends SavableModel> {
 
@@ -24,7 +24,7 @@ public interface ModelStorage<T extends SavableModel> {
      * @return An optional async response of the object
      */
 
-    AsyncResponse<T> findOne(String id);
+    CompletableFuture<Optional<T>> findOne(String id);
 
     /**
      * Get all the objects stored in the database repository collection
@@ -40,7 +40,7 @@ public interface ModelStorage<T extends SavableModel> {
      * @return An async response with all the objects found at the repository collection
      */
 
-    AsyncResponse<Set<T>> getAll();
+    CompletableFuture<Set<T>> getAll();
 
     /**
      * Save an object with the same type of the generic type and save in the database
@@ -49,7 +49,7 @@ public interface ModelStorage<T extends SavableModel> {
      * @return An async void response indicating that was saved
      */
 
-    AsyncResponse<Void> save(T object);
+    CompletableFuture<Void> save(T object);
 
     /**
      * Delete an object of the database
@@ -58,6 +58,6 @@ public interface ModelStorage<T extends SavableModel> {
      * @return An async void response indicating that was deleted
      */
 
-    AsyncResponse<Void> delete(String id);
+    CompletableFuture<Void> delete(String id);
 
 }

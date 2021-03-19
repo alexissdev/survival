@@ -1,9 +1,9 @@
 package dev.notcacha.survival.api.matcher;
 
-import dev.notcacha.survival.api.concurrent.AsyncResponse;
 import dev.notcacha.survival.api.model.SavableModel;
 
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 public interface ModelMatcher<T extends SavableModel> {
 
@@ -21,5 +21,5 @@ public interface ModelMatcher<T extends SavableModel> {
      * It does the same as the above method only asynchronously
      */
 
-    AsyncResponse<T> findModelById(String modelId);
+    CompletableFuture<Optional<T>> findModelById(String modelId);
 }

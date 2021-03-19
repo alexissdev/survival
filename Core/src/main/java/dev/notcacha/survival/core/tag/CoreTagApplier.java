@@ -10,7 +10,6 @@ import org.bukkit.scoreboard.Team;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import java.util.Optional;
 
 @Singleton
 public class CoreTagApplier implements TagApplier {
@@ -25,15 +24,13 @@ public class CoreTagApplier implements TagApplier {
 
         Scoreboard playerScoreboard = player.getScoreboard();
 
-        tagModelMatcher.findModelById(tagId).callback(tagCallback -> {
+        tagModelMatcher.findModelById(tagId).whenComplete((object, error) -> {
 
-            Optional<Tag> tagOptionalResponse = tagCallback.getResponse();
-
-            if (!tagOptionalResponse.isPresent()) {
+            if (!object.isPresent()) {
                 throw new IllegalArgumentException("Invalid id from tag.");
             }
 
-            Tag tag = tagOptionalResponse.get();
+            Tag tag = object.get();
 
             Team team = playerScoreboard.getTeam(String.format(TEAM_FORMAT, tag.getId(), player.getName()));
 

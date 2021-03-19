@@ -67,8 +67,7 @@ kit:
   delete:
     usage: "%%red%%Correct usage is /kit delete <kit name>"
     message: "%%green%%The kit %kit_id% has been deleted."
-# The inventory's settings
-inventory:
-  tag_editor:
-    size: 54
-    title: ""
+# The backpack message's
+backpack:
+  title: "%%gray%%Backpack of %player_name%"
+  user-not: "%%red%%You don't have any backpack to be opened."

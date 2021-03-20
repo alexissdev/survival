@@ -37,7 +37,7 @@ public class WarpCreateCommand implements CommandClass {
         if (warpModelCache.ifPresent(warpName)) {
             //TODO: the warp exists.
 
-            messageHandler.sendReplacing(player, "warp.exists", "%warp_name%", warpName);
+            messageHandler.sendReplacing(player, null, "warp.exists", "%warp_name%", warpName);
             return true;
         }
 
@@ -49,7 +49,7 @@ public class WarpCreateCommand implements CommandClass {
         warpModelCache.addObject(warp);
 
         //TODO: send create message from sender.
-        messageHandler.sendReplacing(player, "default", "warp.create.message", "%warp_name%", warpName);
+        messageHandler.sendReplacing(player, null, "warp.create.message", "%warp_name%", warpName);
         return true;
     }
 

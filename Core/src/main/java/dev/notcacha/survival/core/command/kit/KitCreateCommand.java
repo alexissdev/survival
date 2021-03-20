@@ -73,11 +73,11 @@ public class KitCreateCommand implements CommandClass {
         try  {
             cachedModelProcessor.process(kit);
         } catch (ProcessorException ignored) {
-            messageHandler.sendReplacing(player, "default", "kit.exists", "%kit_id%", kitId);
+            messageHandler.sendReplacing(player, null, "kit.exists", "%kit_id%", kitId);
             return true;
         }
 
-        messageHandler.sendReplacing(player, "default", "kit.create.message", "%kit_id%", kitId);
+        messageHandler.sendReplacing(player, null, "kit.create.message", "%kit_id%", kitId);
         return true;
     }
 }

@@ -39,13 +39,14 @@ public class KitDeleteCommand implements CommandClass {
         Optional<Kit> kitOptional = kitModelCache.findIfPresent(kitId);
 
         if (!kitOptional.isPresent()) {
-            messageHandler.sendReplacing(player, "default", "kit.not-exists", "%kit_id%", kitId);
+            messageHandler.sendReplacing(player, null, "kit.not-exists", "%kit_id%", kitId);
 
             return true;
         }
 
         kitModelDeleteProcessor.process(kitOptional.get());
-        messageHandler.sendReplacing(player, "default", "kit.delete.message", "%kit_id%", kitId);
+
+        messageHandler.sendReplacing(player, null, "kit.delete.message", "%kit_id%", kitId);
         return true;
     }
 }

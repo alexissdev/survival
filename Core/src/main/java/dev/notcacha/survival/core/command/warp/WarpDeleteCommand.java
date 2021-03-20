@@ -37,7 +37,7 @@ public class WarpDeleteCommand implements CommandClass {
             return true;
         }
 
-        messageHandler.sendReplacing(player, "default", "warp.delete.message", "%warp_name%", warpName);
+        messageHandler.sendReplacing(player, null, "warp.delete.message", "%warp_name%", warpName);
 
         warpModelCache.removeObject(warpName);
         return true;

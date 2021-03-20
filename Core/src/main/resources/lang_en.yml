@@ -71,3 +71,21 @@ kit:
 backpack:
   title: "%%gray%%Backpack of %player_name%"
   user-not: "%%red%%You don't have any backpack to be opened."
+# The tag message's
+tag:
+  exists: "%%red%%The %tag_id% tag exists."
+  not-exists: "%%red%%The %tag_id% not exists."
+  create: "%%green%%The %tag_id% has been created."
+  delete: "%%red%%The %tag_id% has been deleted."
+  editor:
+    main:
+      - "%%gray%%%%strike%%-------------------------------"
+      - " %%gold%%%%arrow%% /tag editor prefix <id> <suffix> %%grey%%- %%dark_grey%%Change prefix from tag."
+      - " %%gold%%%%arrow%% /tag editor suffix <id> <suffix> %%grey%%- %%dark_grey%%Change suffix from tag."
+      - "%%gray%%%%strike%%---------------------------%%gray%%%%strike%%----"
+    set:
+      already:
+        prefix: "%%red%%The %tag_prefix% already set to tag."
+        suffix: "%%red%%The %tag_suffix% already set to tag."
+      prefix: "%%green%%Set the prefix %tag_prefix% to %tag_id% tag."
+      suffix: "%%green%%Set the suffix %tag_suffix% to %tag_id% tag."

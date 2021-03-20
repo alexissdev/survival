@@ -27,23 +27,17 @@ public class TagCreateCommand implements CommandClass {
     }
 
     @Command(names = "")
-    public boolean create(@Sender Player player, @OptArg String tagId) {
-        if (tagId == null) {
-            messageHandler.send(player, "tag.create.usage");
-
-            return true;
-        }
-
+    public boolean create(@Sender Player player, @Named("id") String tagId) {
         Tag tag = TagCreator.create(TagCreator.TagProperties.ofArray(tagId));
 
         try  {
             cachedModelProcessor.process(tag);
         } catch (ProcessorException ignored) {
-            messageHandler.sendReplacing(player, "default", "tag.exists", "%tag_id%", tagId);
+            messageHandler.sendReplacing(player, null, "tag.exists", "%tag_id%", tagId);
             return true;
         }
 
-        messageHandler.sendReplacing(player, "default", "tag.create.message","%tag_id%", tagId);
+        messageHandler.sendReplacing(player, null, "tag.create","%tag_id%", tagId);
         return true;
     }
 }

@@ -29,24 +29,19 @@ public class TagDeleteCommand implements CommandClass {
     }
 
     @Command(names = "")
-    public boolean delete(@Sender Player player, @OptArg String tagId) {
-        if (tagId == null) {
-            messageHandler.send(player, "tag.delete.usage");
-
-            return true;
-        }
+    public boolean delete(@Sender Player player, @Named("id") String tagId) {
 
         Optional<Tag> tagOptional = tagModelCache.findIfPresent(tagId);
 
         if (!tagOptional.isPresent()) {
-            messageHandler.sendReplacing(player, "default", "tag.not-exists", "%tag_id%", tagId);
+            messageHandler.sendReplacing(player, null, "tag.not-exists", "%tag_id%", tagId);
 
             return true;
         }
 
         tagModelProcessor.process(tagOptional.get());
 
-        messageHandler.sendReplacing(player, "default", "tag.delete.message", "%tag_id%", tagId);
+        messageHandler.sendReplacing(player, null, "tag.delete", "%tag_id%", tagId);
         return true;
     }
 }

@@ -2,7 +2,6 @@ package dev.notcacha.survival.core.command;
 
 import dev.notcacha.survival.api.matcher.ModelMatcher;
 import dev.notcacha.survival.api.user.User;
-import dev.notcacha.survival.core.util.InventoryUtil;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
 import me.fixeddev.commandflow.bukkit.annotation.Sender;

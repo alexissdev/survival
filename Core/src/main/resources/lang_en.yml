@@ -87,5 +87,7 @@ tag:
       already:
         prefix: "%%red%%The %tag_prefix% already set to tag."
         suffix: "%%red%%The %tag_suffix% already set to tag."
+        color: "%%red%%The %tag_namecolor% already set to tag."
       prefix: "%%green%%Set the prefix %tag_prefix% to %tag_id% tag."
       suffix: "%%green%%Set the suffix %tag_suffix% to %tag_id% tag."
+      color: "%%green%%Set the name-color %tag_namecolor% to %tag_id% tag."

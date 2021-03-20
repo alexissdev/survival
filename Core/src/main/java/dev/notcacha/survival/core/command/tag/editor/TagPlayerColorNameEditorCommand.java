@@ -11,20 +11,20 @@ import org.bukkit.entity.Player;
 
 import javax.inject.Inject;
 
-@Command(names = {"prefix", "p"}, permission = "tag.editor.prefix")
-public class TagPrefixEditorCommand implements CommandClass {
+@Command(names = {"namecolor", "nc"}, permission = "tag.editor.namecolor")
+public class TagPlayerColorNameEditorCommand implements CommandClass {
 
     private final MessageHandler messageHandler;
     private final ModelMatcher<Tag> tagModelMatcher;
 
     @Inject
-    public TagPrefixEditorCommand(MessageHandler messageHandler, ModelMatcher<Tag> tagModelMatcher) {
+    public TagPlayerColorNameEditorCommand(MessageHandler messageHandler, ModelMatcher<Tag> tagModelMatcher) {
         this.messageHandler = messageHandler;
         this.tagModelMatcher = tagModelMatcher;
     }
 
     @Command(names = "")
-    public boolean prefix(@Sender Player player, @Named("id") String tagId, @Named("prefix") String prefix) {
+    public boolean nameColor(@Sender Player player, @Named("id") String tagId, @Named("namecolor") char color) {
 
         tagModelMatcher.findModelById(tagId).whenComplete((object, ignore) -> {
 
@@ -35,14 +35,14 @@ public class TagPrefixEditorCommand implements CommandClass {
 
             Tag tag = object.get();
 
-            if (tag.getPrefix().equals(prefix)) {
-                messageHandler.sendReplacing(player, null, "tag.editor.set.already.prefix", "%tag_prefix%", prefix);
+            if (tag.getColorCodeFromPlayerName() == color) {
+                messageHandler.sendReplacing(player, null, "tag.editor.set.already.color", "%tag_namecolor%", color);
                 return;
             }
 
-            tag.setPrefix(prefix);
+            tag.setColorCodeFromPlayerName(color);
 
-            messageHandler.sendReplacing(player, null, "tag.editor.set.prefix", "%tag_id%", tagId, "%tag_prefix%", prefix);
+            messageHandler.sendReplacing(player, null, "tag.editor.set.color", "%tag_id%", tagId, "%tag_namecolor%", color);
         });
 
         return true;

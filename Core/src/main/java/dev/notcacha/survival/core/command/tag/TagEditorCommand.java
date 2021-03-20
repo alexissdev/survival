@@ -1,5 +1,6 @@
 package dev.notcacha.survival.core.command.tag;
 
+import dev.notcacha.survival.core.command.tag.editor.TagPlayerColorNameEditorCommand;
 import dev.notcacha.survival.core.command.tag.editor.TagPrefixEditorCommand;
 import dev.notcacha.survival.core.command.tag.editor.TagSuffixEditorCommand;
 import me.fixeddev.commandflow.annotated.CommandClass;
@@ -14,7 +15,8 @@ import javax.inject.Inject;
 @Command(names = {"editor", "edit"}, permission = "tag.editor")
 @SubCommandClasses({
         TagPrefixEditorCommand.class,
-        TagSuffixEditorCommand.class
+        TagSuffixEditorCommand.class,
+        TagPlayerColorNameEditorCommand.class
 })
 public class TagEditorCommand implements CommandClass {
 

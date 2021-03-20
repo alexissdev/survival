@@ -14,10 +14,14 @@ import javax.inject.Inject;
 @Command(names = {"suffix", "s"}, permission = "tag.editor.suffix")
 public class TagSuffixEditorCommand implements CommandClass {
 
+    private final MessageHandler messageHandler;
+    private final ModelMatcher<Tag> tagModelMatcher;
+
     @Inject
-    private MessageHandler messageHandler;
-    @Inject
-    private ModelMatcher<Tag> tagModelMatcher;
+    public TagSuffixEditorCommand(MessageHandler messageHandler, ModelMatcher<Tag> tagModelMatcher) {
+        this.messageHandler = messageHandler;
+        this.tagModelMatcher = tagModelMatcher;
+    }
 
     @Command(names = "")
     public boolean suffix(@Sender Player player, @Named("id") String tagId, @Named("suffix") String suffix) {

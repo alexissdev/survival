@@ -5,6 +5,7 @@ import dev.notcacha.survival.api.item.SerializableItem;
 import dev.notcacha.survival.api.kit.Kit;
 import dev.notcacha.survival.api.kit.builder.KitBuilder;
 import dev.notcacha.survival.api.processor.ModelProcessor;
+import dev.notcacha.survival.core.kit.builder.CoreKitBuilder;
 import dev.notcacha.survival.core.kit.creator.KitCreatorSettings;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
@@ -62,7 +63,7 @@ public class KitCreateCommand implements CommandClass {
             }
         }
 
-        Kit kit = KitBuilder.newBuilder(
+        Kit kit = CoreKitBuilder.newBuilder(
                 kitId
         ).setInventoryContents(
                 inventoryContents

@@ -106,4 +106,5 @@ public interface User extends SavableModel {
         void setTag(String tag);
 
     }
+
 }

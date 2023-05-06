@@ -1,4 +1,4 @@
-.idea/
-target/
-API/target/
-Core/target/
+.gradle
+.idea
+build
+*.iml
